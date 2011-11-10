@@ -1,10 +1,6 @@
-.logo
-  = link_to :root do
-    = image_tag 'logo.png', :title => 'Voltar para página inicial', :alt => 'Festival de Ideias, Inovações para o desenvolvimento social | Centro Ruth Cardoso'
+h1= link_to site_name, :root
 = render 'layouts/new_idea'
 = render 'layouts/login'
-= render 'layouts/login_menu'
+= render 'layouts/login_menu' unless current_user
 = render 'layouts/user_menu' if current_user
 = render 'layouts/social'
-= render 'layouts/header_menu'
-.clear

@@ -3,11 +3,9 @@ html xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml"
   head= render 'layouts/head'
   body#site
     #container
-      = render :partial => 'layouts/flash', :locals => { :flash => flash } unless flash.empty?
-      #header
-        .wrapper= render 'layouts/header'
-      #content
+      /= render :partial => 'layouts/flash', :locals => { :flash => flash } unless flash.empty?
+      #header= render 'layouts/header'
+      /#content
         = yield
-      .clear  
-      #footer
+      /#footer
         .wrapper= render 'layouts/footer'

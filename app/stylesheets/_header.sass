@@ -1,23 +1,16 @@
 @import header/login_menu
-@import header/header_menu
 @import header/user_menu
 @import header/social
 
-=header
-  margin: 0 0 20px
+@mixin header
+  +grid(12)
+  +alpha
+  +omega
   padding: 10px 0
-  border-bottom: 5px solid #FFF
-  background: #FFF
-  background: rgba(255, 255, 255, 0.5)
-  +box-shadow(0 0 5px #888)
-  .wrapper
-    position: relative
-  .logo
-    float: left
+  background: white
+  
   #login_menu
     +login_menu
-  #header_menu
-    +header_menu
   #user_menu
     +user_menu
   #social

@@ -7,8 +7,8 @@
 @import footer
 @import form
 
-=body
-  overflow-x: hidden
+@mixin body
+
   background: #D2C9B7 url(/images/bg.jpg) no-repeat bottom center fixed
   text-rendering: optimizeLegibility
   font-family: Calibri
@@ -16,9 +16,6 @@
   font-size: 18px
   line-height: 22px
   font-weight: normal
-
-body, html
-  height: 100%
 
   em
     font-style: italic
@@ -51,14 +48,15 @@ body, html
   +layouts
   +defaults
 
+  +grid-container
+  
   #container
-    min-height: 100%
-    position: relative
-
-  #header
-    +header
-  #content
-    padding-bottom: 700px
-    +content
-  #footer
-    +footer
+    +grid(12)
+    +clearfix
+    background: red
+    #header
+      +header
+    #content
+      +content
+    #footer
+      +footer
