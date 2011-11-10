@@ -12,3 +12,5 @@ public/stylesheets
 *.swo
 *.swm
 *.swn
+.DS_Store
+config/.DS_Store
