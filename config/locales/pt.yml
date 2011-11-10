@@ -39,6 +39,8 @@ pt:
   user:
     no_name: Sem nome
   layouts:
+    header:
+      title: Voltar para página inicial
     new_idea:
       title: Inicie sua ideia para o desenvolvimento social
       warning: Ao criar minha ideia eu entendo que

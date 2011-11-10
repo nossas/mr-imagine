@@ -1,4 +1,6 @@
-h1= link_to site_name, :root
+h1#logo
+  = link_to :root do
+    = image_tag 'logo.png', :title => t('.title'), :alt => site_name
 = render 'layouts/new_idea'
 = render 'layouts/login'
 = render 'layouts/login_menu' unless current_user
