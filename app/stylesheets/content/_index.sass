@@ -1,71 +1,7 @@
 @import content/idea
 
 =index
-  #promo
-    margin-top: -20px
-    background: #c1e7ee
-    background: rgba(153, 191, 198, 0.6)
-    padding-top: 16px
-    padding-bottom: 12px
-    +box-shadow(rgba(0, 0, 0, 0.4) 0 0 1px, rgba(113, 136, 139, 0.5) 0 0 20px 1px inset)
-    border: 1px solid #9EBDC3
-    h1
-      margin-bottom: 22px
-      font-size: 39px
-      font-family: Myriad, serif
-      line-height: 1em
-      letter-spacing: -1px
-      text-align: left
-      +text-shadow(0 1px 0 #EEE)
-    .text
-      position: relative
-      float: left
-      width: 50%
-      img.arrow
-        position: absolute
-        width: 24px
-        top: 160px
-        +opacity(0.9)
-        z-index: 200
-        &.first
-          left: 132px
-        &.second
-          left: 284px
-      ol
-        margin-top: -20px
-        li
-          position: relative
-          font-size: 20px
-          line-height: 20px
-          margin-top: 20px
-          float: left
-          
-          span
-            width: 36px
-            padding-top: 8px
-            font-size: 2em
-            font-family: "SueEllen"
-            float: left
-            color: #575656
-          div
-            color: #575656
-            width: 420px
-            margin-left: 10px
-            float: left
-            font-size: 18px
-            strong
-              display: block
-              color: #444
-              font-size: 23px
-              +text-shadow(0 1px 0 #EEE)
-
-      .description
-        margin: 10px 10px 0 0
-        font-size: 16px
-        line-height: 16px
-    .video
-      margin-left: 10px
-      float: right
+  +grid(12)
   .new_idea
     margin-top: 20px
     strong

@@ -4,11 +4,11 @@
 @import header/social
 
 @mixin header
-  +grid(12)
-  +alpha
-  +omega
-  padding: 10px 0
+  +grid-container
+  +clearfix
   background: white
+  padding: 10px 0
+  +border-radius(0 0 8px 8px)
   #logo
     +logo
   #login_menu
