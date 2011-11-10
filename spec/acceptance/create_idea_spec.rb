@@ -6,15 +6,8 @@ feature 'Create idea', %q{
   I want to access the new idea form, and submit my idea
 } do
 
-  scenario "should not see new idea button when deadline finishes" do
-    current_site.deadline = Date.current - (rand(10) + 1).day
-    current_site.save
-    visit root_path
-    page.should_not have_link("Inicie uma ideia")
-  end
-
   scenario "create a new idea" do
-    category = Factory.build(:category, :site_id => current_site.id)
+    category = Factory.build(:category)
     category.save
     fake_login
     click_link("Inicie uma ideia")
@@ -35,7 +28,7 @@ feature 'Create idea', %q{
   end
   
   scenario "should not be able to create an idea without title" do
-    category = Factory.build(:category, :site_id => current_site.id)
+    category = Factory.build(:category)
     category.save
     fake_login
     click_link("Inicie uma ideia")
@@ -48,7 +41,7 @@ feature 'Create idea', %q{
   end
 
   scenario "should not be able to create an idea without headline" do
-    category = Factory.build(:category, :site_id => current_site.id)
+    category = Factory.build(:category)
     category.save
     fake_login
     click_link("Inicie uma ideia")
@@ -61,7 +54,7 @@ feature 'Create idea', %q{
   end
 
   scenario "should not be able to create an idea without category" do
-    category = Factory.build(:category, :site_id => current_site.id)
+    category = Factory.build(:category)
     category.save
     fake_login
     click_link("Inicie uma ideia")
@@ -74,7 +67,7 @@ feature 'Create idea', %q{
   end
 
   scenario "should not be able to create an idea without accepting license terms" do
-    category = Factory.build(:category, :site_id => current_site.id)
+    category = Factory.build(:category)
     category.save
     fake_login
     click_link("Inicie uma ideia")

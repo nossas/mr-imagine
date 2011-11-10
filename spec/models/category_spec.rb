@@ -17,15 +17,13 @@ describe Category do
     o.should_not be_valid
   end
   
-  it "should have an unique name for each site" do
-    s1 = Factory(:site)
-    s2 = Factory(:site)
-    o = Factory(:category, :name => "foo", :site => s1)
+  it "should have an unique name" do
+    o = Factory(:category, :name => "foo")
     o.should be_valid
-    o2 = Factory.build(:category, :name => "foo", :site => s1)
+    o2 = Factory.build(:category, :name => "foo")
     o2.should_not be_valid
-    o2 = Factory.build(:category, :name => "foo", :site => s2)
-    o2.should be_valid
+    o3 = Factory.build(:category, :name => "bar")
+    o3.should be_valid
   end
   
 end

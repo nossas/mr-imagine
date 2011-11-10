@@ -8,7 +8,7 @@ task :print_featured_ideas => :environment do
   csv_string = CSV.generate do |csv|
     csv << ["Categoria","Título","Autor","Página da ideia","Primária"]
     Idea.featured.each do |idea|
-      csv << [idea.category.name,idea.title,idea.user.name,idea.site.full_url+idea_path(idea),(idea.parent ? 'n' : 's')]
+      csv << [idea.category.name,idea.title,idea.user.name,idea_url(idea),(idea.parent ? 'n' : 's')]
     end
   end
   puts csv_string

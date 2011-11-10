@@ -5,8 +5,6 @@ ActiveAdmin.register Category do
     controller.current_ability.can?(:manage, Category)
   }
 
-  scope_to :current_site
-
   index do
     column :name do |category|
       link_to category.name, admin_category_path(category)

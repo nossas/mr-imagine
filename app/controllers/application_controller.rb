@@ -1,11 +1,30 @@
 class ApplicationController < ActionController::Base
 
   protect_from_forgery
-  helper_method :current_user, :current_site, :replace_locale
+  helper_method :current_user, :replace_locale, :site_name, :facebook_admins, :analytics_account, :base_url
   before_filter :set_locale
   before_filter :detect_locale
 
   private
+  
+  def site_name
+    @site_name ||= Configuration.find_by_name('site_name').value
+  rescue
+  end
+  
+  def facebook_admins
+    @facebook_admins ||= Configuration.find_by_name('fb:admins').value
+  rescue
+  end
+  
+  def analytics_account
+    @analytics_account ||= Configuration.find_by_name('analytics_account').value
+  rescue
+  end
+  
+  def base_url
+    "#{request.protocol}#{request.host}#{":#{request.port}" if request.port}"
+  end
   
   def set_locale
     return unless params[:locale]
@@ -45,20 +64,6 @@ class ApplicationController < ActionController::Base
     new_url
   end
   
-  def current_site
-    return @current_site if @current_site
-    return @current_site = Site.find_by_path(session[:current_site]) if session[:current_site]
-    site_host = request.host.gsub "www.", ""
-    @current_site = Site.find_by_host site_host
-    @current_site = Site.find_by_host("localhost") unless @current_site
-    unless @current_site
-      site_template = Template.first
-      site_template = Template.create(:name => "Template") unless site_template
-      @current_site = Site.create(:template => site_template, :name => "Localhost", :host => "localhost", :port => "3000", :auth_gateway => true)
-    end
-    @current_site
-  end
-
   def current_user
     return @current_user if @current_user
     if session[:user_id]
@@ -93,7 +98,7 @@ class ApplicationController < ActionController::Base
   end
   
   def require_admin
-    require_condition((can? :manage, current_site), t('require_admin'))
+    require_condition((can? :manage, :all), t('require_admin'))
   end
   
 end

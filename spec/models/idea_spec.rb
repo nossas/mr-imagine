@@ -7,11 +7,6 @@ describe Idea do
     o.should be_valid
   end
   
-  it "should have a site" do
-    o = Factory.build(:idea, :site => nil)
-    o.should_not be_valid
-  end
-  
   it "should have a user" do
     o = Factory.build(:idea, :user => nil)
     o.should_not be_valid
@@ -19,11 +14,6 @@ describe Idea do
   
   it "should have a category" do
     o = Factory.build(:idea, :category => nil)
-    o.should_not be_valid
-  end
-  
-  it "should have a template" do
-    o = Factory.build(:idea, :template => nil)
     o.should_not be_valid
   end
   

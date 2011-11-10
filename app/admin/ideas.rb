@@ -1,7 +1,5 @@
 ActiveAdmin.register Idea do
 
-  scope_to :current_site
-  
   scope :all
   scope :recommended
   scope :featured

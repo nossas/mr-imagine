@@ -7,7 +7,7 @@ task :cron => :environment do
   return nil unless access_token
   include Rails.application.routes.url_helpers
 
-  urls_string = Idea.all.collect{|i| CGI.escape (i.site.full_url+idea_path(i))}.join(',')
+  urls_string = Idea.all.collect{|i| CGI.escape (idea_url(i))}.join(',')
   request_url = "https://api.facebook.com/method/links.getStats?urls=#{urls_string}&access_token=#{CGI.escape access_token.value}&format=json"
   url_stats = JSON.parse RestClient.get(request_url)
   puts "Total ideas on database: #{Idea.all.count}"

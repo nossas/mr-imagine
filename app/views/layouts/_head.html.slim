@@ -1,15 +1,13 @@
-title= "#{@title}#{' · ' if @title}#{current_site.name}"
-- if current_site.image
-  link rel="shortcut icon" href==current_site.image.url(:favicon)
-- if current_site.fb_admins
-  meta property="fb:admins" content==current_site.fb_admins
+title= "#{@title}#{' · ' if @title}#{site_name}"
+link rel="shortcut icon" href="/images/favicon.png"
+meta property="fb:admins" content==facebook_admins
 meta http-equiv='Content-Type' content='text/html'
-meta name='keywords' content=current_site.name
-meta name='description' content=current_site.name
+meta name='keywords' content=site_name
+meta name='description' content=site_name
 meta charset='utf-8'
 meta name="robots" content="index, follow"
 meta name="author" content="Softa"
-meta property="og:site_name" content=current_site.name
+meta property="og:site_name" content=site_name
 meta property="og:url" content==request.url
 = yield :meta_tags
 = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
@@ -31,15 +29,16 @@ javascript:
     invert: true
   }
 
-- cache("#{current_site.host}_analytics") do
-  - if current_site.google_analytics and current_site.google_analytics.length > 0
-    javascript:
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', '#{current_site.google_analytics}']);
-      _gaq.push(['_trackPageview']);
+-# cache("analytics") do
 
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
+- if analytics_account and not analytics_account.empty?
+  javascript:
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '#{analytics_account}']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();

@@ -2,16 +2,9 @@ class SessionsController < ApplicationController
 
   skip_before_filter :detect_locale
   
-  def pre_auth
+  def auth
     session[:return_to] = params[:return_to]
     session[:remember_me] = params[:remember_me]
-    url = "/auth/?provider=#{params[:provider]}&return_site_id=#{current_site.id}&return_session_id=#{session[:session_id]}"
-    redirect_to Site.auth_gateway.full_url(url)
-  end
-
-  def auth
-    session[:return_site_id] = params[:return_site_id]
-    session[:return_session_id] = params[:return_session_id]
     redirect_to "/auth/#{params[:provider]}"
   end
 
@@ -20,29 +13,10 @@ class SessionsController < ApplicationController
     user = User.find_with_omni_auth(auth["provider"], auth["uid"].to_s)
     new_user = false
     unless user
-      user = User.create_with_omniauth(current_site, auth)
+      user = User.create_with_omniauth(auth)
       new_user = true
     end
-    user.update_attribute :session_id, session[:return_session_id]
-    redirect_url = "/post_auth/?user_id=#{user.id}&new_user=#{new_user}"
-    if session[:return_site_id] and session[:return_site_id].to_s != current_site.id.to_s
-      site = Site.find(session[:return_site_id])
-      redirect_url = site.full_url(redirect_url)
-    end
-    session[:return_site_id] = nil
-    session[:return_session_id] = nil
-    redirect_to redirect_url
-  end
-
-  def post_auth
-    user = User.find(params[:user_id])
-    if user.session_id != session[:session_id]
-      flash[:failure] = t('sessions.post_auth.error')
-      return redirect_to :root
-    end
-    if params[:new_user] == "true"
-      session[:return_to] = user_path(user) if session[:return_to].nil? or session[:return_to].empty?
-    end
+    session[:return_to] = user_path(user) if session[:return_to].nil? or session[:return_to].empty? if new_user
     session[:user_id] = user.id
     if session[:remember_me]
       cookies[:remember_me_id] = { :value => user.id, :expires => 30.days.from_now }
@@ -69,7 +43,6 @@ class SessionsController < ApplicationController
     return render :status => :forbidden unless Rails.env.test?
     user = Factory(:user, :uid => 'fake_login')
     user.admin = true if params[:root_admin] == 'true'
-    user.sites << Site.find(params[:site]) if params[:site]
     user.save
     session[:user_id] = user.id
     flash[:success] = t('sessions.post_auth.success', :name => user.display_name)

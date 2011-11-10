@@ -44,11 +44,6 @@ describe User do
     o.should_not be_valid
   end
   
-  it "should have a site" do
-    o = Factory.build(:user, :site => nil)
-    o.should_not be_valid
-  end
-  
   it "should not have duplicate provider and uid" do
     o = Factory.build(:user, :provider => "twitter", :uid => "123456")
     o.should be_valid
@@ -98,7 +93,7 @@ describe User do
         'image' => "user.png"
       }
     }
-    o = User.create_with_omniauth(Factory(:site), auth, primary.id)
+    o = User.create_with_omniauth(auth, primary.id)
     o.should == primary
     User.count.should == 2
   end
@@ -123,7 +118,7 @@ describe User do
         'image' => "user.png"
       }
     }
-    o = User.create_with_omniauth(Factory(:site), auth)
+    o = User.create_with_omniauth(auth)
     o.should be_valid
     o.provider.should == auth['provider']
     o.uid.should == auth['uid']

@@ -11,8 +11,6 @@ class CreateUsers < ActiveRecord::Migration
       t.text :bio
       t.text :image_url
       t.boolean :admin, :null => false, :default => false
-      t.references :site, :null => false
-      t.text :session_id
       t.text :locale, :null => false, :default => 'pt'
       t.timestamps
     end
@@ -22,7 +20,6 @@ class CreateUsers < ActiveRecord::Migration
       t.bio :length_within => 0..140
       t[:provider, :uid].all :unique => true
       t.primary_user_id :reference => {:users => :id}
-      t.site_id :reference => {:sites => :id}
     end
     add_index :users, :uid
     add_index :users, :name

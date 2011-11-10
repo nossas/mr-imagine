@@ -10,6 +10,6 @@
       = image_tag 'dropdown.png', :class => 'dropdown'
     ul
       li= link_to t('.my_profile'), user_path(current_user)
-      - if can? :manage, current_site
+      - if can? :manage, :all
         li= link_to t('.admin'), admin_dashboard_path, :target => :_blank
       li= link_to t('.logout'), logout_path

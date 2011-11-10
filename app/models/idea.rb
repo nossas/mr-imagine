@@ -3,14 +3,12 @@ class Idea < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include AutoHtml
   
-  belongs_to :site
   belongs_to :user
   belongs_to :category
-  belongs_to :template
   belongs_to :parent, :class_name => 'Idea', :foreign_key => :parent_id
   has_many :versions, :class_name => 'Idea', :foreign_key => :parent_id
   has_many :merges
-  validates_presence_of :site, :user, :category, :template, :title, :headline
+  validates_presence_of :user, :category, :title, :headline
   validates_length_of :headline, :maximum => 140
 
   scope :featured, where(:featured => true).order('created_at DESC')
@@ -60,19 +58,6 @@ class Idea < ActiveRecord::Base
     end
   end
 
-  after_update :check_if_complete
-  def check_if_complete
-    return if self.featured
-    return unless self.complete?
-    return if self.site.deadline_finished?
-    self.featured = true
-    self.save
-  end
-  
-  def complete?
-    self.document["description"] and self.document["description"].length > 0 and self.document["have"] and self.document["have"].length > 0 and self.document["need"] and self.document["need"].length > 0
-  end
-  
   after_find :load_document
   def load_document
     begin
@@ -104,10 +89,8 @@ class Idea < ActiveRecord::Base
   def create_fork(current_user)
     fork = Idea.new({
       :parent => self,
-      :site => self.site,
       :user => current_user,
       :category => self.category,
-      :template => self.template,
       :title => self.title,
       :headline => self.headline
     })
@@ -199,30 +182,6 @@ class Idea < ActiveRecord::Base
     convert_html description
   end
   
-  def have
-    document["have"]
-  end
-  
-  def have=(value)
-    document["have"] = value
-  end
-  
-  def have_html
-    convert_html have
-  end
-  
-  def need
-    document["need"]
-  end
-  
-  def need=(value)
-    document["need"] = value
-  end
-  
-  def need_html
-    convert_html need
-  end
-  
   def convert_html(text)
     auto_html text do
       html_escape :map => { 
@@ -251,10 +210,6 @@ class Idea < ActiveRecord::Base
       :user => user,
       :description => description,
       :description_html => description_html,
-      :have => have,
-      :have_html => have_html,
-      :need => need,
-      :need_html => need_html,
       :likes => likes,
       :versions_count => versions.count,
       :document => document,
@@ -276,7 +231,6 @@ class Idea < ActiveRecord::Base
     self.merges.merges_from(from).pending.first
   end
     
-  
   private
   
   def merge_needed?(idea = nil, from = nil)

@@ -1,4 +1,5 @@
 class IdeasController < ApplicationController
+
   load_and_authorize_resource
   inherit_resources
 
@@ -9,13 +10,13 @@ class IdeasController < ApplicationController
   def index
     index! do |format|
       format.html do
-        @featured = current_site.ideas.featured.primary.limit(4).all
-        @popular = current_site.ideas.popular.limit(4).all
-        @recent = current_site.ideas.not_featured.recent.limit(4).all
-        @count = current_site.ideas.count
+        @featured = Idea.featured.primary.limit(4).all
+        @popular = Idea.popular.limit(4).all
+        @recent = Idea.not_featured.recent.limit(4).all
+        @count = Idea.count
       end
       format.json do
-        @ideas = current_site.ideas.search(params[:search]).page params[:page]
+        @ideas = Idea.search(params[:search]).page params[:page]
         render :json => @ideas.to_json
       end
     end
@@ -23,7 +24,7 @@ class IdeasController < ApplicationController
   
   def explore
     @title = t('ideas.explore.title')
-    @categories = current_site.categories.with_ideas.order(:name).all
+    @categories = Category.with_ideas.order(:name).all
   end
   
   def show
@@ -44,16 +45,9 @@ class IdeasController < ApplicationController
   end
   
   def create
-    if current_site.deadline_finished?
-      flash[:error] = t('ideas.deadline_finished')
-      redirect_to root_path
-    else
-      @idea = Idea.new(params[:idea])
-      @idea.site = current_site
-      @idea.user = current_user
-      @idea.template = current_site.template
-      create!
-    end
+    @idea = Idea.new(params[:idea])
+    @idea.user = current_user
+    create!
   end
   
   def update

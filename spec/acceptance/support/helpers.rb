@@ -1,15 +1,5 @@
 module HelperMethods
   # Put helper methods you need to be available in all tests here.
-  def current_site
-    return @current_site if @current_site
-    return @current_site = Site.first if Site.first
-    unless @current_site
-      site_template = Template.first
-      site_template = Template.create!(:name => "Template") unless site_template
-      @current_site = Site.create!(:template => site_template, :name => "Localhost", :host => "localhost", :port => "3000", :auth_gateway => true)
-    end
-    @current_site
-  end
   def fake_login(params = '')
     visit fake_login_path + '?' + params
   end
