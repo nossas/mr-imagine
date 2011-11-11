@@ -2,15 +2,20 @@
 
 @mixin explore
   +grid(12)
-  h2
-    font-size: 24px
-    letter-spacing: 1px
+  +alpha
+  +omega
+  margin-top: 10px
+  .header
+    +grid(12)
+    h2
+      font-size: 24px
+      letter-spacing: 1px
   .content
-    padding: 20px 0 0 0
-    clear: both
+    +grid(12)
+    padding-top: 20px
     .menu
-      float: left
-      width: 240px
+      +grid(3)
+      +alpha
       h3
         padding-bottom: 8px
         font-weight: normal
@@ -18,7 +23,6 @@
         font-size: 16px
       ul
         padding-bottom: 32px
-        margin-right: 32px
         li a
           display: block
           background: #454545
@@ -33,18 +37,23 @@
           &.selected
             background: #4FA581
     .results
-      float: right
-      width: 700px
+      +grid(9)
+      +omega
       overflow: hidden
       padding-bottom: 48px
       ul
+        +grid(9)
+        +alpha
+        +omega
         width: 720px
         li
           +idea
-          margin-left: 0
-          margin-right: 20px
+          +grid(3)
+          +alpha
+          margin-right: $ninesixty-gutter-width
           margin-top: 18px
       .loading
+        +grid(9)
+        +omega
         text-align: center
-        clear: both
         padding-top: 18px

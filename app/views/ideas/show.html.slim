@@ -69,7 +69,6 @@
                 h1= link_to(version.title, idea_path(version))
                 .user= t('.versions.user_html', :link => link_to(version.user.display_name, user_path(version.user)))
                 .headline
-                  .quote “
                   p= version.headline
                 .created_at= t('.versions.created_at', :created_at => l(version.created_at.to_date, :format => :short))
                 .changes
