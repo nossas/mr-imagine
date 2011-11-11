@@ -1,8 +1,10 @@
-=user_menu
+@mixin user_menu
   +grid(5)
+  position: relative
   z-index: 200
-  padding: 16px
   a.user
+    display: block
+    padding: 16px
     text-decoration: none
     img.avatar
       border: 1px solid #7d7d7d
@@ -24,6 +26,7 @@
     left: 0
     text-align: right
     a
+      padding: 0px
       text-decoration: none
       color: #eee
       &:hover

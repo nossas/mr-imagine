@@ -1,17 +1,13 @@
-=social
+@mixin social
   +grid(5)
   em
     font-size: 0.8em
   img
-    height: 60px
-    margin: 5px 10px 0 0
+    +grid(2)
+    +grid-prefix(1)
+    +alpha
   .fb_like
-    margin: 8px 0
-    width: 60px
-    float: right
-    iframe
-      width: 60px !important
-  .twitter_share, .twitter_follow
-    margin-right: 20px
-    float: right
-    margin-top: 5px
+    +grid(1)
+  .twitter_share
+    +grid(1)
+    +omega

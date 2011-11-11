@@ -1,20 +1,18 @@
-=idea
-  float: left
-  margin: 0 10px
+@mixin idea
+  +grid(3)
+  &:first-child
+    +alpha
+  &:last-child
+    +omega
   padding-top: 42px
   position: relative
   .category
     position: absolute
     left: 0
     top: 0
-  &:first-child
-    margin-left: 0
-  &:last-child
-    margin-right: 0
   .idea
-    width: 218px
     height: 244px
-    background: #fff
+    background: white
     border: 1px solid #ccc
     +border-radius(5px 5px 0 0)
     .idea_wrapper
@@ -74,13 +72,13 @@
       ul
         li
           font-family: Myriad, serif
-          float: left
           border-right: 1px solid #ccc
           border-left: 1px solid #fff
           padding: 5px
           padding-bottom: 2px
           margin: 0
           height: 18px
+          width: 28px
           line-height: 18px
           img
             vertical-align: top

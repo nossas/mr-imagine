@@ -1,16 +1,15 @@
 @import content/idea
 
-=index
+@mixin index
   +grid(12)
   .new_idea
+    +grid(8)
+    +alpha
     margin-top: 20px
     strong
       font-size: 1.6em
       margin-top: 8px
-      float: left
     a
-      float: left
-      display: block
       +border-radius(4px)
       padding: 4px 8px
       background: #7675b1
@@ -23,9 +22,9 @@
       &:hover
         background: #6665a1
   .explore
-    clear: both
-    width: 83%
-    margin: 0 auto
+    +grid(10)
+    +grid-push(1)
+    +alpha
     margin-top: 48px
     margin-bottom: 32px
     padding: 12px 0
@@ -44,7 +43,9 @@
       &:hover
         color: #36a1c2
   .ideas
-    clear: both
+    +grid(12)
+    +alpha
+    +omega
     padding-top: 28px
     h3
       margin-bottom: 15px
@@ -56,10 +57,14 @@
       li
         +idea
     .more
-      clear: both
+      +grid(4)
+      +grid-push(8)
+      +alpha
+      +omega
       text-align: right
       padding-top: 16px
       a
+        display: block
         text-decoration: none
         .arrow
           float: right
