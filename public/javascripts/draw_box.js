@@ -5,7 +5,8 @@ IdeaView.prototype.afterRender = function() {
   var width = this.el.width()
   var height = this.el.height()
   var canvas = Raphael(left, top, width, height)
-  var circle = canvas.circle(50, 40, 10)
+  var circle = canvas.circle(20, 40, 20)
   circle.attr("fill", "#f00")
   circle.attr("stroke", "#fff")
+
 }
