@@ -77,9 +77,9 @@ pt:
     index:
       title: Intercâmbio de ideias, criação colaborativa e soluções inovadoras!
       bullets:
-        first: Encontre uma ideia que você gostaria de aprimorar
+        first: Encontre uma ideia que você gostaria de remixar
         second: Crie sua própria versão e trabalhe até ficar satisfeito
-        third: Devolva a ideia para a comunidade aprimorar ainda mais
+        third: Devolva a ideia para a comunidade remixar mais e mais
       step_1_html: "<span>#1</span> <div><strong>Seleção!</strong> Em pouquíssimo tempo, o #festideias reuniu 346 ideias inovadoras sobre três grandes questões. Após uma difícil seleção, o time de curadores chegou às 20 ideias que irão, nos dias 20 e 21 de setembro, para o evento na Cinemateca Brasileira, em São Paulo. Confira a lista abaixo!</div>"
       step_2_html: "<span>#2</span> <div><strong>Confirme sua presença</strong> Não deixe de ir à Cinemateca Brasileira, para aprimorar as 20 ideias selecionadas nas mesas abertas de co-criação. É a sua chance de interagir! Além dos debates, você poderá conhecer os organizadores e aumentar seu networking.</div>"
       step_3_html: "<span>#3</span> <div><strong>No dia</strong> Lá na Cinemateca, as ideias serão refinadas, estruturadas, apresentadas, e as três finalistas ganharão R$ 10 mil cada uma. Além disso, o FdI contará com uma programação diversa: debates, conversas e muita interação!</div>"
@@ -108,7 +108,7 @@ pt:
       link: Conheça e contribua
     explore:
       title: Conheça as ideias do Festival
-      subtitle: Encontre as ideias que você gostaria de aprimorar e contribua!
+      subtitle: Encontre as ideias que você gostaria de remixar e contribua!
       quick: Busca rápida
       featured: Recomendadas
       popular: Populares

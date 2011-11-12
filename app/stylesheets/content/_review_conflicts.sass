@@ -1,5 +1,9 @@
 @mixin review_conflicts
+  +grid(12)
   .header
+    +grid(12)
+    +alpha
+    +omega
     text-align: center
     margin: 12px 0
     h3
@@ -8,9 +12,10 @@
       em
         color: #3d3d3d
   .content
-    clear: both
-    overflow: auto
-    padding: 20px 10px
+    +grid(12)
+    +alpha
+    +omega
+    padding: 20px 0
     min-height: 432px
     h1
       text-transform: uppercase
@@ -18,8 +23,8 @@
       font-weight: normal
       padding-bottom: 8px
     .text
-      float: left
-      width: 510px
+      +grid(7)
+      +alpha
       .attribute
         padding-bottom: 16px
         .error
@@ -37,12 +42,12 @@
           padding: 8px
           padding-top: 28px
           margin-bottom: 8px
-          border: 5px solid #fff
+          border: 5px solid #eee
           .actions
             position: absolute
             top: 0
             left: 0
-            width: 484px
+            width: 514px
             padding: 4px 8px 2px 8px
             font-size: 14px
             line-height: 14px
@@ -67,8 +72,8 @@
             &.ours
               border: 5px solid #84d4eb
           &.both
-            //border: 5px solid #6fc6a2
-            //border: 5px solid rgba(111, 198, 162, 0.1)
+            background: lighten(#6fc6a2, 36%)
+            background: rgba(111, 198, 162, 0.1)
             .actions
               background: #6fc6a2
               background: rgba(111, 198, 162, 0.4)
@@ -87,8 +92,8 @@
               background: #84d4eb
               background: rgba(132, 212, 235, 0.8)
     .info
-      float: right
-      width: 368px
+      +grid(5)
+      +omega
       .tips
         font-size: 16px
         +border-radius(8px)
@@ -99,4 +104,7 @@
           color: #36a1c2
           &:hover
             color: #56c1e2
-
+    form
+      +grid(12)
+      +alpha
+      +omega
