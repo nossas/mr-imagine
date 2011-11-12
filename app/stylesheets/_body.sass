@@ -10,8 +10,8 @@
 
   background: $sand url(/images/bg.jpg) no-repeat bottom center fixed
   text-rendering: optimizeLegibility
-  font-family: "Folk"
-  color: black
+  font-family: AkagiRegular
+  color: $light_black
   font-size: 18px
   line-height: 22px
   font-weight: normal
@@ -22,26 +22,29 @@
     font-weight: bold
   a
     text-decoration: underline
-    color: #7675b1
+    color: $pink
     +transition
     &:hover
-      color: #9695d1
+      color: $light_pink
   p
     font-family: "AkagiRegular"
     padding-bottom: 8px
+
+  h1
+    font-family: "Folk"
+    font-size: 35px
+    line-height: 36px
+    font-weight: normal
 
   h2
     color: $dark_brey 
     font-family: "Folk"
     font-size: 36px
     line-height: 40px
-    letter-spacing: 1px
-  h1
+
+  h3
     font-family: "Folk"
-    font-size: 35px
-    line-height: 36px
-    letter-spacing: 2px
-    font-weight: normal
+
   form
     +form
 

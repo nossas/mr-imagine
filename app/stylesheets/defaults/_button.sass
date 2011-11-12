@@ -3,19 +3,19 @@
   text-rendering: optimizeLegibility
   text-transform: uppercase
   text-decoration: none
-  font-family: Calibri
+  font-family: AkagiRegular
   display: block
-  color: #fff
+  color: white
   padding: 5px 15px
   border: none
   +border-radius(4px)
-  background-color: #FF4646
+  background-color: $pink
   +transition(all, 0.3s)
   &:hover
-    background-color: #FF2626
+    background-color: lighten($pink, 4%)
   &:active
     +transition(none)
     padding: 6px 14px 4px 16px
   &:disabled
-    color: #888
-    background-color: #aaa
+    color: $grey
+    background-color: $light_grey

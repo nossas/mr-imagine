@@ -16,20 +16,21 @@
       margin: 13px
       .category
       h1
-        font-family: inherit
-        letter-spacing: 0
+        font-family: "Folk"
         background: transparent
         padding: 0
         margin-top: 6px
         width: 100%
-        font-size: 15px
-        line-height: 18px
-        letter-spacing: 1px
+        font-size: 14px
+        line-height: 16px
         text-transform: uppercase
         a
+          color: $dark_grey
           text-decoration: none
+          &:hover
+            color: black
       .user
-        color: #525252
+        color: $grey
         font-style: italic
         font-family: AkagiLight
         font-size: 14px
@@ -41,15 +42,15 @@
           font-family: AkagiRegular
           font-size: 14px
           line-height: 14px
-          letter-spacing: 0
-          color: #3d3d3d
+          color: $light_black
       .link
         position: absolute
         bottom: 40px
         text-align: center
+        font-family: "Folk"
         a
-          color: #FFF
-          background: #7675B1
+          color: white
+          background: $orange
           +border-radius(4px)
           padding: 6px 38px
           text-decoration: none
@@ -57,26 +58,25 @@
           font-size: 14px
           line-height: 18px
           &:hover
-            background: #8A8ABA
+            background: lighten($orange, 4%)
 
     .footer
       background: url('/images/box_bottom.png') bottom center no-repeat
       font-size: 0.8em
+      height: 26px
       overflow: hidden
-      text-shadow: 1px 0 1px rgba(255,255,255,0.6)
       ul
+        width: 194px
+        padding: 2px 16px
         li
-          float: left
-          font-family: Myriad, serif
-          border-right: 1px solid #ccc
-          border-left: 1px solid #fff
-          padding: 5px
-          padding-bottom: 2px
+          &:first-child
+            float: left
+          &:last-child
+            float: right
           margin: 0
-          height: 18px
+          font-family: Folk
+          color: white
           width: 36px
-          line-height: 18px
           img
             vertical-align: top
-            margin-top: -2px
             margin-right: 4px

@@ -11,12 +11,13 @@
       +alpha
       font-size: 1.69em
     a
+      font-family: "Folk"
       +grid(2)
       +grid-suffix(5)
       +omega
       +border-radius(4px)
       padding: 4px 0
-      background: #7675b1
+      background: $blue
       color: white
       margin-top: 4px
       text-align: center
@@ -25,7 +26,7 @@
       font-size: 20px
       line-height: 24px
       &:hover
-        background: #6665a1
+        background: lighten($blue, 8%)
   .explore
     +grid(10)
     +grid-push(1)
@@ -33,8 +34,8 @@
     margin-top: 48px
     margin-bottom: 32px
     padding: 12px 0
-    background: #c1e7ee
-    background: rgba(193, 231, 238, 0.8)
+    color: $dark_grey
+    background: $light_brey
     +border-radius(8px)
     text-align: center
     font-size: 24px
@@ -44,9 +45,6 @@
       line-height: 36px
     a
       text-decoration: none
-      color: #1681a2
-      &:hover
-        color: #36a1c2
   .ideas
     +grid(12)
     +alpha
@@ -57,7 +55,7 @@
       text-align: left
       font-size: 28px
       font-weight: normal
-      color: #777
+      color: $grey
     ul
       li
         +idea
@@ -77,4 +75,4 @@
           line-height: 32px
           font-weight: bold
           margin-left: 4px
-          margin-top: -2px
+          margin-top: -4px

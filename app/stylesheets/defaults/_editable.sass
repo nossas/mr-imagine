@@ -22,14 +22,15 @@
         padding: 2px 8px
         +transition(background-color, color)
         &:hover
-          background-color: red
+          background-color: lighten($pink, 4%)
         &:active
           padding: 3px 7px 1px 9px
         &[type=cancel]
           background: white !important
-          color: #FF4646
+          color: $pink
+          border: 1px solid $ice
           &:hover
-            color: red
+            color: lighten($pink, 10%)
   .editing
     &:after
       content: "" !important
