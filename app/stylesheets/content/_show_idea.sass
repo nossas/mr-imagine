@@ -56,11 +56,15 @@
       float: left
       padding: 2px 0 0
   .changed
+    +grid(12)
+    +alpha
+    +omega
     background: #7675b1
     color: white
     +border-radius(8px)
     text-align: center
-    padding: 8px
+    padding: 8px 0
+    margin-top: 20px
     margin-bottom: 20px
     a
       color: white
@@ -74,18 +78,11 @@
         font-weight: normal
         margin-bottom: 12px
       ul
+        +grid(9)
+        +grid-push(3)
         +horizontal-list(2px)
-        width: 480px
-        margin: 0 auto
         li
-          clear: none
-          background: none
-          padding-top: 0
-          padding-bottom: 0
-          margin: 0
-          +border-radius(0)
           a
-            margin: 0
             +button
             font-size: 14px
             padding: 2px 8px
@@ -98,23 +95,27 @@
               &:hover
                 color: #fff
   .menu
-    clear: both
+    +grid(12)
+    +alpha
+    +omega
     position: relative
     border-bottom: 2px solid #DDD
     +box-shadow(0 1px 0 #FFF)
     ul
+      +grid(7)
+      +alpha
       position: absolute
       top: 1px
-      left: 0
-      +horizontal-list(0px)
       li
         a
+          float: left
           color: #606060
           text-decoration: none
           text-transform: uppercase
           font-size: 16px
           display: block
-          padding: 8px 12px
+          padding: 8px 0
+          margin-right: 12px
           text-align: center
           +transition(none)
           +transition(color)
@@ -126,16 +127,32 @@
             border-bottom: none
             padding-bottom: 11px
             position: relative
-  .fork_idea, .remove_idea
-    float: right
-    margin-bottom: 8px
-    margin-left: 5px
-    a
-      +button
+    .buttons
+      +grid(5)
+      +grid-push(7)
+      +alpha
+      +omega
+      margin-bottom: 8px
+      a
+        +button
+        text-align: center
+      .fork_idea
+        +grid(3)
+        +alpha
+        +omega
+        float: right
+      .remove_idea
+        +grid(2)
+        +alpha
+        +omega
+        float: right
+        margin-left: $ninesixty-gutter-width
   .content
-    clear: both
+    +grid(12)
+    +alpha
+    +omega
     overflow: auto
-    padding: 20px 10px
+    padding: 20px 0
     min-height: 432px
     h1
       text-transform: uppercase
@@ -143,14 +160,14 @@
       font-weight: normal
       padding-bottom: 8px
     .text
-      float: left
-      width: 510px
+      +grid(7)
+      +alpha
       .attribute
         padding-bottom: 16px
         min-height: 40px
     .info
-      float: right
-      width: 368px
+      +grid(5)
+      +omega
       .placeholder, .formatting_tips
         font-size: 16px
         +border-radius(8px)
@@ -166,7 +183,7 @@
         h3, ul li
           margin-bottom: 8px
     img
-      max-width: 510px
+      max-width: 540px
     .versions .text
       a
         color: #3d3d3d
@@ -174,8 +191,6 @@
           color: #000
       ul
         li
-          clear: both
-          overflow: auto
           background: #d1f7fe
           background: rgba(193, 231, 238, 0.6)
           +border-radius(8px)
@@ -200,7 +215,6 @@
               overflow: hidden
             p
               font-size: 16px
-              padding-left: 8px
               color: #3d3d3d
               padding-bottom: 0
           .created_at
@@ -253,7 +267,9 @@
                     &:hover
                       color: #000
   .footer
-    clear: both
+    +grid(12)
+    +alpha
+    +omega
     text-align: center
     padding-top: 32px
     img

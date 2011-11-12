@@ -41,11 +41,11 @@
       li
         a href="#versions"
           = t('.menu.versions')
-    - if can? :destroy, @idea
-      .remove_idea= link_to t('.remove_idea'), '#remove'
-    - if can? :create_fork, @idea
-      .fork_idea= link_to t('.fork_idea'), '#fork'
-    .clear
+    .buttons
+      - if can? :destroy, @idea
+        .remove_idea= link_to t('.remove_idea'), '#remove'
+      - if can? :create_fork, @idea
+        .fork_idea= link_to t('.fork_idea'), '#fork'
   .content
     .description
       .text

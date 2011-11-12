@@ -3,16 +3,10 @@ class Ability
 
   def initialize(user)
 
-    #raise user.inspect
-    
     can :read, :all
     can :explore, Idea
 
-    if user and user.admin?
-
-      can :manage, :all
-
-    elsif user
+    if user
 
       can :create, Idea
       can :manage, User do |u|
@@ -22,7 +16,9 @@ class Ability
         idea.user_id == user.id
       end
       can :create_fork, Idea
-      cannot :create_fork, Idea, :user_id => user.id
+      #cannot :create_fork, Idea, :user_id => user.id
+      
+      can :manage, :all if user.admin?
 
     end
 

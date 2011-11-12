@@ -119,7 +119,7 @@ pt:
       user_html: Esta é uma ideia de %{link}.
       parent_html: "Esta é uma versão de %{user}, criada a partir da ideia de %{parent}."
       headline: Em poucas palavras...
-      fork_idea: Melhorar esta ideia
+      fork_idea: Remixar esta ideia
       remove_idea: Apagar
       need_to_merge:
         html: Ei, a ideia original de %{user} possui alterações. Que tal mesclar estas alterações com as suas %{link}?
@@ -136,7 +136,7 @@ pt:
         description_html: "<p>Explique aqui a sua ideia. Quanto mais detalhes você der, mais as pessoas vão poder contribuir com sua ideia.</p><p>Mas ao mesmo tempo seja breve: ninguém gosta de ler textos gigantes que não vão direto ao ponto.</p>"
         have_html: <p>Explique aqui o que você ou o seu grupo já possuem das coisas que são necessárias para botar sua ideia em prática.</p><p>Você pode fazer uma lista e ir alterando à medida que recebe contribuições.</p>
         need_html: <p>Explique aqui o que você ou o seu grupo precisam para fazer a sua ideia acontecer.</p><p>Deste modo, as pessoas que acreditam na sua ideia irão saber como podem contribuir.</p>
-        versions_html: "<p>O nosso processo de colaboração funciona assim: cada pessoa pode criar sua própria versão de qualquer ideia e aprimorá-la à vontade.</p><p>Depois, é possível juntar os resultados dos trabalhos de cada um em uma ideia só.</p><p>Assim, as ideias podem ser desenvolvidas colaborativamente e ao mesmo tempo com liberdade para cada pessoa trabalhar sua visão.</p><p>Bateu a curiosidade? Clique no botão <em>melhorar esta ideia</em> acima e experimente!</p>"
+        versions_html: "<p>O nosso processo de colaboração funciona assim: cada pessoa pode criar sua própria versão de qualquer ideia e aprimorá-la à vontade.</p><p>Depois, é possível juntar os resultados dos trabalhos de cada um em uma ideia só.</p><p>Assim, as ideias podem ser desenvolvidas colaborativamente e ao mesmo tempo com liberdade para cada pessoa trabalhar sua visão.</p><p>Bateu a curiosidade? Clique no botão <em>remixar esta ideia</em> acima e experimente!</p>"
       versions:
         title: Outras versões desta ideia
         empty:
@@ -155,8 +155,8 @@ pt:
       accept: Sim, desejo remover esta ideia
       form_button: Apagar
     fork_idea:
-      title: Melhorar esta ideia
-      subtitle: Para que você aperfeiçoe esta ideia, criaremos uma versão dela para você.
+      title: Remixar esta ideia
+      subtitle: Para você remixar esta ideia, criaremos uma versão dela para você.
       warning: Ao criar minha versão desta ideia eu entendo que
       accept:
         license_html: Ela será licenciada em <a href="http://creativecommons.org/licenses/by/3.0/br/" target="_blank">Creative Commons Atribuição 3.0 (CC BY 3.0)</a>
@@ -179,7 +179,7 @@ pt:
       success: Sua ideia foi removida com sucesso.
       failure: Não foi possível remover sua ideia.
     create_fork:
-      success: Sua versão foi criada com sucesso! Agora você já pode aperfeiçoar esta ideia à vontade.
+      success: Sua versão foi criada com sucesso! Agora você já pode remixar esta ideia à vontade.
       failure: Ooops. Não foi possível criar sua versão desta ideia. Por favor, tente novamente.
     merge:
       success: As duas ideias foram mescladas automaticamente com sucesso!
@@ -189,7 +189,7 @@ pt:
       failure: Não foi possível mesclar as duas ideias. Por favor, revise as alterações novamente.
     pending_merge:
       title_parent: "Você possui uma mescla pendente com esta versão. Neste caso, você pode:"
-      title: "Você possui uma mescla pendente com a versão original de sua ideia. Para se mesclar as duas ideias, você pode:"
+      title: "Você possui uma mescla pendente com a versão original de sua ideia. Para mesclar as duas ideias, você pode:"
       review: Revisar as alterações manualmente
       merge: Ou tentar uma nova mescla
     review_conflicts:
