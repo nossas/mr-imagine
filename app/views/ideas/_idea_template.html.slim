@@ -2,11 +2,13 @@ script type="text/template" id="idea_template"
   |{{#attributes}}
   |{{#category}}
   .idea class="{{css_class}}"
+    |{{/category}}
     .idea_wrapper
-      img class="category" src="{{badge}}" title="{{name}}"
-      |{{/category}}
       h1
         a href='{{url}}'
+          |{{#category}}
+          img class="category" src="{{badge}}" title="{{name}}"
+          |{{/category}}
           |{{title}}
       |{{#user}}
       .user= t('.by', :user => "{{name}}")

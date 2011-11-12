@@ -16,7 +16,6 @@ var PaginatedCollection = Backbone.Collection.extend({
     url = "/" + app.locale + "/" + url + "?" + $.param({page: this.page})
     if(this.search)
       url = url + '&' + $.param({search: this.search})
-    console.log(url)
     return url
   },
   initializePages: function(){
