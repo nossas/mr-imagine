@@ -3,18 +3,23 @@
 @mixin index
   +grid(12)
   .new_idea
-    +grid(8)
+    +grid(12)
     +alpha
-    margin-top: 20px
-    strong
-      font-size: 1.6em
-      margin-top: 8px
+    +omega
+    h2
+      +grid(5)
+      +alpha
+      font-size: 1.69em
     a
+      +grid(2)
+      +grid-suffix(5)
+      +omega
       +border-radius(4px)
-      padding: 4px 8px
+      padding: 4px 0
       background: #7675b1
       color: white
-      margin-left: 12px
+      margin-top: 4px
+      text-align: center
       text-decoration: none
       text-transform: uppercase
       font-size: 20px
