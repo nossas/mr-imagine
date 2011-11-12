@@ -6,25 +6,22 @@
     +omega
   padding-top: 42px
   position: relative
-  .category
-    position: absolute
-    left: 0
-    top: 0
   .idea
-    height: 244px
-    background: white
-    border: 1px solid #ccc
-    +border-radius(5px 5px 0 0)
+    +grid(3)
+    +alpha
+    height: 316px
+    background: url('/images/box.png') no-repeat
     .idea_wrapper
       width: 194px
-      height: 194px
-      margin: 12px
+      height: 264px
+      margin: 13px
+      .category
       h1
         font-family: inherit
         letter-spacing: 0
         background: transparent
         padding: 0
-        margin: 0
+        margin-top: 6px
         width: 100%
         font-size: 15px
         line-height: 18px
@@ -49,14 +46,13 @@
           color: #3d3d3d
       .link
         position: absolute
-        bottom: 48px
-        left: 36px
+        bottom: 40px
         text-align: center
         a
           color: #FFF
           background: #7675B1
           +border-radius(4px)
-          padding: 4px 6px
+          padding: 6px 38px
           text-decoration: none
           text-transform: uppercase
           font-size: 14px
@@ -65,11 +61,9 @@
             background: #8A8ABA
 
     .footer
-      border-top: 1px solid #ccc
-      +linear-gradient(color_stops(#fff,#eee))
+      background: url('/images/box_bottom.png') bottom center no-repeat
       font-size: 0.8em
       overflow: hidden
-      color: #666
       text-shadow: 1px 0 1px rgba(255,255,255,0.6)
       ul
         li

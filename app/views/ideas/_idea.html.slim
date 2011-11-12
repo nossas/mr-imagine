@@ -1,7 +1,7 @@
 li
-  = image_tag idea.category.badge.url, :class => 'category', :title => idea.category.name
   .idea class=idea.category.css_class
     .idea_wrapper
+      = image_tag idea.category.badge.url, :class => 'category', :title => idea.category.name
       h1= link_to idea.title, idea_path(idea)
       .user= t('.by', :user => idea.user.name)
       .headline
