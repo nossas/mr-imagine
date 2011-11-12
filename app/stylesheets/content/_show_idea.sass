@@ -1,14 +1,17 @@
 @mixin show_idea
+  +grid(12)
   .header
-    float: left
+    +grid(12)
+    +alpha
+    +omega
     margin-bottom: 20px
     .category
-      float: left
-      width: 65px
+      +grid(1)
+      +alpha
     .info
+      +grid(11)
+      +omega
       margin-top: 14px
-      float: left
-      width: 838px
       a
         color: #3d3d3d
         &:hover
@@ -18,9 +21,6 @@
         line-height: 32px
       h2
         padding-bottom: 8px
-      .fork
-        margin-left: 8px
-        float: right
       .user
         font-style: italic
         font-size: 16px
@@ -32,8 +32,6 @@
       .headline
         margin-top: 6px
         p
-          float: right
-          width: 838px
           color: #3d3d3d
           min-height: 40px
     &.violencia
@@ -49,19 +47,15 @@
         color: #6fc6a2
         color: rgba(111, 198, 162, 0.6)
   .social
-    float: left
-    background: #FFF
-    margin: 0 0 10px
-    padding: 10px 10px 8px
-    width: 920px
-    clear: both
+    +grid(12)
+    +alpha
+    +omega
     .fb_like
       float: left
     .twitter_share
       float: left
       padding: 2px 0 0
   .changed
-    clear: both
     background: #7675b1
     color: white
     +border-radius(8px)

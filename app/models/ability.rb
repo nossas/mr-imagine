@@ -3,19 +3,21 @@ class Ability
 
   def initialize(user)
 
-    user ||= User.new # guest user (not logged in)
+    #raise user.inspect
+    
+    can :read, :all
+    can :explore, Idea
 
-    if user.admin?
+    if user and user.admin?
 
       can :manage, :all
 
-    else
-
-      can :read, :all
+    elsif user
 
       can :create, Idea
-      can :explore, Idea
-      can :manage, User, :id => user.id
+      can :manage, User do |u|
+        u.id == user.id
+      end
       can :manage, Idea do |idea|
         idea.user_id == user.id
       end
