@@ -1,18 +1,17 @@
 @mixin login_menu
-  +grid(5)
-  color: #999
+  +grid(4)
+  color: #333
   text-transform: uppercase
   ul
-    color: #DCF1F7
+    color: white
     padding: 5px 10px !important
-    background: #BFD5D9
-    +text-shadow(1px 0 1px #C3D4D8)
+    background: $light_pink 
+    //+text-shadow(1px 0 1px white)
     +horizontal-list(4px)
     +border-radius(5px)
-    width: 272px
     a
-      color: #555
+      color: white
       text-decoration: none
-      +text-shadow(0 1px 0 #EEE)
+      //+text-shadow(0 1px 0 #EEE)
       &:hover
-        color: #333
+        color: $brey
