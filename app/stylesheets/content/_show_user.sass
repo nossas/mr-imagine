@@ -1,19 +1,21 @@
 @import content/idea
 
 @mixin show_user
+  +grid(12)
   .header    
-    width: 100%
+    +grid(12)
+    +alpha
+    +omega
     display: block
-    float: left
     .image
-      float: left
-      margin-right: 10px
+      +grid(2)
+      +alpha
       position: relative
       img
         +box-shadow(0 1px 4px rgba(0, 0, 0, 0.27))
+        width: 130px
         padding: 5px
-        background: #FFF
-        width: 100px
+        background: white
         &.clickable
           cursor: pointer
       form
@@ -21,19 +23,19 @@
         top: -1000px
       .upload
         position: absolute
-        width: 102px
+        width: 132px
         bottom: 5px
         background-color: #666
         background-color: rgba(0, 0, 0, 0.5)
-        color: #fff
+        color: white
         font-size: 14px
         line-height: 14px
         padding: 4px
         text-align: center
         cursor: pointer
     .info
-      float: right
-      width: 810px
+      +grid(10)
+      +omega
       h2
         font-family: Myriad
         color: #3D3D3D
@@ -49,29 +51,34 @@
         &.editable
           height: 60px
 
-  .aside
-    margin-top: 20px
-    width: 460px
-    float: left
-    +idea
-    .idea
-      width: 458px
-      height: 123px
-      .idea_wrapper
-        margin-top: 20px
-        width: auto
-        height: 65px
-        h1
-          font-size: 18px
-    h3
-      font-family: Myriad
-      font-size: 1.4em
-    li
-      margin-top: 50px
-      position: relative
-      img.category
-        top: -40px !important
-    .empty
-      font-style: italic
-      padding-top: 20px
-      display: block
+  .content
+    +grid(12)
+    +alpha
+    +omega
+    .aside
+      +idea
+      +grid(6)
+      .ideas
+        +alpha
+      .versions
+        +omega
+      margin-top: 20px
+      .idea
+        height: 123px
+        .idea_wrapper
+          margin-top: 20px
+          height: 65px
+          h1
+            font-size: 18px
+      h3
+        font-family: Myriad
+        font-size: 1.4em
+      li
+        margin-top: 50px
+        position: relative
+        img.category
+          top: -40px !important
+      .empty
+        font-style: italic
+        padding-top: 20px
+        display: block
