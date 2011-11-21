@@ -4,7 +4,6 @@ source 'http://gems.github.com'
 gem 'rails', '3.0.3'
 gem 'rake', '0.8.7'
 
-gem 'pg'
 gem 'unicorn'
 gem 'slim'
 gem 'compass'
@@ -29,6 +28,7 @@ gem 'rmagick'
 gem 'capybara', "~> 1.0.0"
 gem 'thin', '1.2.11'
 gem 'compass-960-plugin'
+gem 'pg'
 
 group :production do
   gem 'fog'
