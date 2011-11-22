@@ -18,7 +18,7 @@
       .user
         = t('.user_html', :link => link_to(@idea.user.display_name, user_path(@idea.user))) unless @idea.parent
         - if @idea.parent
-          = image_tag 'icons/ramify.png'
+          = image_tag 'icons/ramify_color.png'
           = t('.parent_html', :user => link_to(@idea.user.display_name, user_path(@idea.user)), :parent => link_to(@idea.parent.user.display_name, idea_path(@idea.parent)))
       .headline
         p class=("editable" if can? :edit, @idea) data-attribute="headline" data-raw=@idea.headline data-maxlength=140 data-singleline=true
