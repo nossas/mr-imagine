@@ -24,8 +24,9 @@
         p class=("editable" if can? :edit, @idea) data-attribute="headline" data-raw=@idea.headline data-maxlength=140 data-singleline=true
           = @idea.headline
     .social
-      .twitter_share= render :partial => 'shared/twitter_share'
-      .fb_like= render :partial => 'shared/fb_like'
+      .fb_like= render :partial => 'shared/fb_like', :locals => { :url => root_url, :show_faces => false, :width => '60', :layout => 'box_count' }
+      .twitter_share= render :partial => 'shared/twitter_share', :locals => { :url => root_url, :count => 'vertical' }
+
     - if can? :edit, @idea
       - if @idea.parent and @idea.pending_merge(@idea.parent)
         .changed= render :partial => 'pending_merge', :object => @idea.pending_merge(@idea.parent)

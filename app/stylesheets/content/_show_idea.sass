@@ -9,10 +9,10 @@
       +grid(3)
       +alpha
     .info
-      +grid(9)
+      +grid(7)
       +omega
       a
-        color: $light_black
+        color: $pink
         &:hover
           color: black
       h1
@@ -21,6 +21,8 @@
       h2
         padding-bottom: 8px
       .user
+        +grid(7)
+        +alpha
         font-style: italic
         font-size: 14px
         line-height: 16px
@@ -31,18 +33,27 @@
       .headline
         margin-top: 6px
         p
+          +grid(7)
+          +alpha
+          margin-top: 5px
           color: $light_black
           min-height: 40px
           font-size: 16px
           line-height: 20px
-  .social
-    +grid(10)
-    +alpha
-    .fb_like
-      float: left
-    .twitter_share
-      float: left
-      padding: 2px 0 0
+    .social
+      +grid(2)
+      .fb_like
+        +grid(1)
+        +alpha
+        display: inline
+        float: left
+      .twitter_share
+        +grid(1)
+        +omega
+        display: inline  
+        float: left
+        padding: 2px 0 0
+
   .changed
     +grid(12)
     +alpha
