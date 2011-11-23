@@ -1,3 +1,4 @@
 require 'capybara/rails'
-Capybara.default_driver = :selenium
+Capybara.default_driver = :webkit
+Capybara.javascript_driver = :selenium
 
