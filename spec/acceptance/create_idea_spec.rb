@@ -9,8 +9,10 @@ feature 'Create idea', %q{
   scenario "create a new idea" do
     category = Factory.build(:category)
     category.save
+
     fake_login
-    click_link("Inicie uma ideia")
+
+    find_link("Inicie uma ideia").click
     within "#new_idea" do
       fill_in('idea_title', :with => 'foo idea')
       fill_in('idea_headline', :with => 'foo idea headline')
@@ -31,12 +33,12 @@ feature 'Create idea', %q{
     category = Factory.build(:category)
     category.save
     fake_login
-    click_link("Inicie uma ideia")
+    find_link("Inicie uma ideia").click
     within "#new_idea" do
       fill_in('idea_headline', :with => 'foo idea headline')
       choose("idea_category_id_#{category.id}")
       check('new_accept')
-      find('#idea_submit')['disabled'].should == "true"
+      find('#idea_submit')[:disabled].should == "true"
     end
   end
 
@@ -44,12 +46,12 @@ feature 'Create idea', %q{
     category = Factory.build(:category)
     category.save
     fake_login
-    click_link("Inicie uma ideia")
+    find_link("Inicie uma ideia").click
     within "#new_idea" do
       fill_in('idea_title', :with => 'foo idea')
       choose("idea_category_id_#{category.id}")
       check('new_accept')
-      find('#idea_submit')['disabled'].should == "true"
+      find('#idea_submit')[:disabled].should == "true"
     end
   end
 
@@ -57,12 +59,12 @@ feature 'Create idea', %q{
     category = Factory.build(:category)
     category.save
     fake_login
-    click_link("Inicie uma ideia")
+    find_link("Inicie uma ideia").click
     within "#new_idea" do
       fill_in('idea_title', :with => 'foo idea')
       fill_in('idea_headline', :with => 'foo idea headline')
       check('new_accept')
-      find('#idea_submit')['disabled'].should == "true"
+      find('#idea_submit')[:disabled].should == "true"
     end
   end
 
@@ -70,12 +72,12 @@ feature 'Create idea', %q{
     category = Factory.build(:category)
     category.save
     fake_login
-    click_link("Inicie uma ideia")
+    find_link("Inicie uma ideia").click
     within "#new_idea" do
       fill_in('idea_title', :with => 'foo idea')
       fill_in('idea_headline', :with => 'foo idea headline')
       choose("idea_category_id_#{category.id}")
-      find('#idea_submit')['disabled'].should == "true"
+      find('#idea_submit')[:disabled].should == "true"
     end
   end
 
