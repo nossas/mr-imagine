@@ -10,7 +10,6 @@
       +alpha
     .info
       +grid(7)
-      +omega
       a
         color: $pink
         &:hover
@@ -42,17 +41,12 @@
           line-height: 20px
     .social
       +grid(2)
+      +omega
       .fb_like
-        +grid(1)
-        +alpha
         display: inline
-        float: left
       .twitter_share
-        +grid(1)
-        +omega
         display: inline  
-        float: left
-        padding: 2px 0 0
+        //padding: 2px 0 0
 
   .changed
     +grid(12)
@@ -161,25 +155,30 @@
       +grid(7)
       +alpha
       .attribute
+        margin-top: 14px
         padding-bottom: 16px
         min-height: 40px
+      .placeholder
+        font-size: 16px
+        line-height: 16px
+        color: $green
     .info
       +grid(5)
       +omega
-      .placeholder, .formatting_tips
+      .formatting_tips
         font-size: 16px
+        background-color: $ice
         +border-radius(8px)
         background-color: $light_brey
-        padding: 20px 10px 12px 10px
+        padding: 12px 10px 0 10px
         margin-bottom: 16px
         a
           color: $blue
           &:hover
             color: $light_blue
-      .formatting_tips
-        background-color: $ice
         h3, ul li
           margin-bottom: 8px
+
     img
       max-width: 540px
     .versions .text
