@@ -24,8 +24,9 @@
         p class=("editable" if can? :edit, @idea) data-attribute="headline" data-raw=@idea.headline data-maxlength=140 data-singleline=true
           = @idea.headline
     .social
-      .twitter_share= render :partial => 'shared/twitter_share'
-      .fb_like= render :partial => 'shared/fb_like'
+      .fb_like= render :partial => 'shared/fb_like', :locals => { :url => root_url, :show_faces => false, :width => '60', :layout => 'box_count' }
+      .twitter_share= render :partial => 'shared/twitter_share', :locals => { :url => root_url, :count => 'vertical' }
+
     - if can? :edit, @idea
       - if @idea.parent and @idea.pending_merge(@idea.parent)
         .changed= render :partial => 'pending_merge', :object => @idea.pending_merge(@idea.parent)
@@ -49,13 +50,13 @@
     .description
       .text
         h1= t('.menu.description')
+        - if can? :edit, @idea
+          .placeholder= t('.placeholders.description_html')
         .attribute class=("editable" if can? :edit, @idea) data-attribute="description" data-raw=@idea.description data-raw-attribute="description_html"
           == @idea.description_html
       .info
-        - if can? :edit, @idea
-          .placeholder= t('.placeholders.description_html')
-          = render 'formatting_tips'
         .comments= render :partial => 'shared/comments', :locals => { :url => "#{idea_url(@idea)}#description" }
+        = render 'formatting_tips'
     .versions
       .text
         h1= t('.versions.title')

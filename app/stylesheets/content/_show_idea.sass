@@ -9,10 +9,9 @@
       +grid(3)
       +alpha
     .info
-      +grid(9)
-      +omega
+      +grid(7)
       a
-        color: $light_black
+        color: $pink
         &:hover
           color: black
       h1
@@ -21,6 +20,8 @@
       h2
         padding-bottom: 8px
       .user
+        +grid(7)
+        +alpha
         font-style: italic
         font-size: 14px
         line-height: 16px
@@ -31,17 +32,22 @@
       .headline
         margin-top: 6px
         p
+          +grid(7)
+          +alpha
+          margin-top: 5px
           color: $light_black
           min-height: 40px
-  .social
-    +grid(12)
-    +alpha
-    +omega
-    .fb_like
-      float: left
-    .twitter_share
-      float: left
-      padding: 2px 0 0
+          font-size: 16px
+          line-height: 20px
+    .social
+      +grid(2)
+      +omega
+      .fb_like
+        display: inline
+      .twitter_share
+        display: inline  
+        //padding: 2px 0 0
+
   .changed
     +grid(12)
     +alpha
@@ -149,25 +155,30 @@
       +grid(7)
       +alpha
       .attribute
+        margin-top: 14px
         padding-bottom: 16px
         min-height: 40px
+      .placeholder
+        font-size: 16px
+        line-height: 16px
+        color: $green
     .info
       +grid(5)
       +omega
-      .placeholder, .formatting_tips
+      .formatting_tips
         font-size: 16px
+        background-color: $ice
         +border-radius(8px)
         background-color: $light_brey
-        padding: 20px 10px 12px 10px
+        padding: 12px 10px 0 10px
         margin-bottom: 16px
         a
           color: $blue
           &:hover
             color: $light_blue
-      .formatting_tips
-        background-color: $ice
         h3, ul li
           margin-bottom: 8px
+
     img
       max-width: 540px
     .versions .text

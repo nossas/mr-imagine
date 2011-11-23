@@ -10,6 +10,7 @@ meta name="author" content="Engage"
 meta property="og:site_name" content=site_name
 meta property="og:url" content==request.url
 = yield :meta_tags
+= stylesheet_link_tag 'reset.css', :media => 'screen, projection'
 = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
 = stylesheet_link_tag 'print.css', :media => 'print'
 /[if IE]
