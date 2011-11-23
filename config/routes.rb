@@ -4,7 +4,6 @@ Ramify::Application.routes.draw do
   
   ActiveAdmin.routes(self)
 
-  root :to => "ideas#index"
 
   post "/auth" => "sessions#auth", :as => :auth
   get "/post_auth" => "sessions#post_auth", :as => :post_auth
@@ -37,4 +36,8 @@ Ramify::Application.routes.draw do
     end
   end
   
+  root :to => "ideas#index"
+
 end
+
+
