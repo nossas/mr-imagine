@@ -14,7 +14,7 @@
 var RAMIFY = {
   host: 'http://localhost:3001',
   init: function(){
-    this.loadJS(this.loadStylesheets);
+    this.loadJS(this.loadFrame);
   },
 
   loadJS: function(callback){
@@ -34,6 +34,19 @@ var RAMIFY = {
     return this.host + '/javascripts/' + path + '.js';
   },
 
+  loadFrame: function(){
+    var iframe = RAMIFY.$("<iframe>").attr({
+      'src' : RAMIFY.host,
+      'width' : '950',
+      'height' : '800',
+      'frameborder': '0',
+      'name' : 'ramify-content'
+    });
+    RAMIFY.$("#main").append(iframe);
+  }
+
+
+  /*
   loadStylesheets: function(){
     var stylesheet = RAMIFY.$('<link>')
       .attr({
@@ -43,7 +56,7 @@ var RAMIFY = {
         'type': 'text/css'
       });
     RAMIFY.$('head').append(stylesheet);
-  }
+  }*/
 
 };
 RAMIFY.init();
