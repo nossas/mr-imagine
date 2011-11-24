@@ -1,7 +1,7 @@
 Ramify::Application.routes.draw do
 
   filter :locale
-  
+
   ActiveAdmin.routes(self)
 
 
@@ -13,7 +13,7 @@ Ramify::Application.routes.draw do
   match "/admin/logout" => "sessions#destroy", :as => :logout
 
   match "/explore" => "ideas#explore", :as => :explore
-  
+
   match "/fake_login" => "sessions#fake_create", :as => :fake_login if Rails.env.test?
 
   match "/my_profile" => "users#my_profile", :as => :my_profile
@@ -21,6 +21,7 @@ Ramify::Application.routes.draw do
   resources :ideas, :only => [:index, :create, :update, :show, :destroy] do
     collection do
       get 'explore'
+      get 'iframe' => "ideas#iframe_index"
     end
     member do
       post 'create_fork'
@@ -29,13 +30,13 @@ Ramify::Application.routes.draw do
       put 'resolve_conflicts'
     end
   end
-  
+
   resources :users, :only => [:show, :update] do
     collection do
       get 'my_profile'
     end
   end
-  
+
   root :to => "ideas#index"
 
 end

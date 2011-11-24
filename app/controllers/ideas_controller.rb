@@ -6,14 +6,20 @@ class IdeasController < ApplicationController
   actions :index, :show, :create, :update, :destroy
   respond_to :html, :except => [:update]
   respond_to :json, :only => [:index, :update]
-  
-  def index
+
+  def iframe_index
+    index("iframe")
+  end
+
+  def index(layout="application")
     index! do |format|
       format.html do
         @featured = Idea.featured.primary.limit(4).all
         @popular = Idea.popular.limit(4).all
         @recent = Idea.not_featured.recent.limit(4).all
         @count = Idea.count
+        render :index, :layout => layout
+
       end
       format.json do
         @ideas = Idea.search(params[:search]).page params[:page]
@@ -21,12 +27,12 @@ class IdeasController < ApplicationController
       end
     end
   end
-  
+
   def explore
     @title = t('ideas.explore.title')
     @categories = Category.with_ideas.order(:name).all
   end
-  
+
   def show
     show! do
       @editable = (current_user and current_user == @idea.user)
@@ -43,13 +49,13 @@ class IdeasController < ApplicationController
       end
     end
   end
-  
+
   def create
     @idea = Idea.new(params[:idea])
     @idea.user = current_user
     create!
   end
-  
+
   def update
     update! do |format|
       format.json do
@@ -57,7 +63,7 @@ class IdeasController < ApplicationController
       end
     end
   end
-  
+
   def destroy
     idea = Idea.find(params[:id])
     if idea.destroy
@@ -67,7 +73,7 @@ class IdeasController < ApplicationController
       flash[:failure] = t('ideas.remove.failure')
     end
   end
-  
+
   def create_fork
     idea = Idea.find(params[:id])
     fork = idea.create_fork(current_user)
@@ -79,7 +85,7 @@ class IdeasController < ApplicationController
       redirect_to idea_path(idea)
     end
   end
-  
+
   def merge
     idea = Idea.find(params[:id])
     if idea.merge!(params[:from_id])
@@ -90,13 +96,13 @@ class IdeasController < ApplicationController
       redirect_to review_conflicts_idea_path(idea, params[:from_id])
     end
   end
-  
+
   def review_conflicts
     @idea = Idea.find(params[:id])
     @from = Idea.find(params[:from_id])
     @conflicts = @idea.conflicts(params[:from_id])["attributes"]
   end
-  
+
   def resolve_conflicts
     idea = Idea.find(params[:id])
     conflict_attributes = JSON.parse(params[:conflict_attributes]) unless params[:conflict_attributes].empty?
@@ -109,5 +115,5 @@ class IdeasController < ApplicationController
       redirect_to review_conflicts_idea_path(idea, params[:from_id])
     end
   end
- 
+
 end

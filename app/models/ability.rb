@@ -5,6 +5,7 @@ class Ability
 
     can :read, :all
     can :explore, Idea
+    can :iframe_index, Idea
 
     if user
 
@@ -17,7 +18,7 @@ class Ability
       end
       can :create_fork, Idea
       #cannot :create_fork, Idea, :user_id => user.id
-      
+
       can :manage, :all if user.admin?
 
     end
