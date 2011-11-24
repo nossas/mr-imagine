@@ -14,7 +14,7 @@
 var RAMIFY = {
   host: 'http://localhost:3001',
   init: function(){
-    this.loadJS(this.loadFrame);
+    this.loadJS(function(){ RAMIFY.loadFrame('/ideas/iframe') });
   },
 
   loadJS: function(callback){
