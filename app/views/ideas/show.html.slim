@@ -49,7 +49,7 @@
   .content
     .description
       .text
-        h1= t('.menu.description')
+        //h1= t('.menu.description')
         - if can? :edit, @idea
           .placeholder= t('.placeholders.description_html')
         .attribute class=("editable" if can? :edit, @idea) data-attribute="description" data-raw=@idea.description data-raw-attribute="description_html"
