@@ -21,7 +21,6 @@ Ramify::Application.routes.draw do
   resources :ideas, :only => [:index, :create, :update, :show, :destroy] do
     collection do
       get 'explore'
-      get 'iframe' => "ideas#iframe_index"
     end
     member do
       post 'create_fork'

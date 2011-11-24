@@ -7,18 +7,18 @@ class IdeasController < ApplicationController
   respond_to :html, :except => [:update]
   respond_to :json, :only => [:index, :update]
 
-  def iframe_index
-    index("iframe")
-  end
+  before_filter :set_iframe_session, :only => :index
 
-  def index(layout="application")
+
+
+  def index()
     index! do |format|
       format.html do
-        @featured = Idea.featured.primary.limit(4).all
+       @featured = Idea.featured.primary.limit(4).all
         @popular = Idea.popular.limit(4).all
         @recent = Idea.not_featured.recent.limit(4).all
         @count = Idea.count
-        render :index, :layout => layout
+        return render :index, :layout => "iframe" if session[:iframe]
 
       end
       format.json do
@@ -33,7 +33,7 @@ class IdeasController < ApplicationController
     @categories = Category.with_ideas.order(:name).all
   end
 
-  def show
+ def show()
     show! do
       @editable = (current_user and current_user == @idea.user)
       @versions = @idea.versions.order("created_at DESC").all
@@ -47,7 +47,9 @@ class IdeasController < ApplicationController
           end
         end
       end
+      return render :show, :layout => "iframe" if session[:iframe]
     end
+
   end
 
   def create
@@ -115,5 +117,8 @@ class IdeasController < ApplicationController
       redirect_to review_conflicts_idea_path(idea, params[:from_id])
     end
   end
-
+  protected
+  def set_iframe_session
+    session[:iframe] ||= params[:iframe]
+  end
 end
