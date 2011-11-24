@@ -15,8 +15,8 @@ describe("RAMIFY", function(){
       RAMIFY.init();
     });
 
-    it("should call loadJS passing loadStylesheets as callback", function(){
-      expect(RAMIFY.loadJS).toHaveBeenCalledWith(RAMIFY.loadStylesheets);
+    it("should call loadJS passing loadFrame as callback", function(){
+      expect(RAMIFY.loadJS).toHaveBeenCalledWith(RAMIFY.loadFrame);
     });
   });
 
@@ -34,7 +34,8 @@ describe("RAMIFY", function(){
 
   describe("loadJS", function(){
     var callback = function(){};
-    var loadStylesCallback = null;
+    // Now we're calling the LoadFrameCallback, instead of LoadStyleSheets
+    var loadFramesCallback = null;
 
     beforeEach(function(){
       // We need to spy on some global functions here, so no var for them
@@ -44,10 +45,10 @@ describe("RAMIFY", function(){
 
       spyOn($script, "ready");
       spyOn(jQuery, "noConflict");
-      loadStylesCallback = jasmine.createSpy('loadStylesheets');
+      loadFramesCallback = jasmine.createSpy('loadFrame');
 
       $script.ready.andCallFake(function(name, callback){ callback(); });
-      RAMIFY.loadJS(loadStylesCallback);
+      RAMIFY.loadJS(loadFramesCallback);
     });
 
     it("should call $script to load ramify's jquery", function(){
@@ -64,10 +65,36 @@ describe("RAMIFY", function(){
     });
 
     it("should call the callback parameter after loading jQuery", function(){
-      expect(loadStylesCallback).toHaveBeenCalled();
+      expect(loadFramesCallback).toHaveBeenCalled();
     });
   });
 
+  describe("loadFrame", function(){
+    var iframe = $("<iframe>");
+    var target = $("#main");
+
+    beforeEach(function(){
+      spyOn(RAMIFY, "$").andCallFake(function(selector) { return (selector == "<iframe>" ? iframe : target) });
+      spyOn(iframe, "attr").andCallThrough();
+      spyOn(target, "append");
+      RAMIFY.loadFrame();
+    });
+
+    it("should append iframe to target element", function(){
+      expect(RAMIFY.$).toHaveBeenCalledWith("<iframe>");
+      expect(iframe.attr).toHaveBeenCalledWith({
+        'src': 'http://localhost',
+        'width': '950',
+        'height': '800',
+        'frameborder': '0',
+        'name': 'ramify-content'
+      });
+      expect(RAMIFY.$).toHaveBeenCalledWith('#main');
+      expect(target.append).toHaveBeenCalledWith(iframe);
+    });
+  });
+
+  /**
   describe("loadStylesheets", function(){
     var stylesheet = $('<link>');
     var head = $('<head>');
@@ -89,5 +116,5 @@ describe("RAMIFY", function(){
       expect(RAMIFY.$).toHaveBeenCalledWith('head');
       expect(head.append).toHaveBeenCalledWith(stylesheet);
     });
-  });
+  }); **/
 });
