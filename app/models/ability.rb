@@ -5,8 +5,6 @@ class Ability
 
     can :read, :all
     can :explore, Idea
-    can :iframe_index, Idea
-
     if user
 
       can :create, Idea
