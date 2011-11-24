@@ -77,10 +77,21 @@ describe("RAMIFY", function(){
       spyOn(RAMIFY, "$").andCallFake(function(selector) { return (selector == "<iframe>" ? iframe : target) });
       spyOn(iframe, "attr").andCallThrough();
       spyOn(target, "append");
-      RAMIFY.loadFrame();
+    });
+
+    it("should append iframe to target element with path", function(){
+      RAMIFY.loadFrame('/ideias/iframe');
+      expect(iframe.attr).toHaveBeenCalledWith({
+        'src': 'http://localhost/ideias/iframe',
+        'width': '950',
+        'height': '800',
+        'frameborder': '0',
+        'name': 'ramify-content'
+      });
     });
 
     it("should append iframe to target element", function(){
+      RAMIFY.loadFrame();
       expect(RAMIFY.$).toHaveBeenCalledWith("<iframe>");
       expect(iframe.attr).toHaveBeenCalledWith({
         'src': 'http://localhost',
