@@ -26,6 +26,7 @@ gem 'rest-client'
 gem "simple_form"
 gem 'rmagick'
 gem 'capybara', "~> 1.0.0"
+gem 'capybara-webkit' # dependency: QT
 gem 'thin', '1.2.11'
 gem 'compass-960-plugin'
 gem 'pg'

@@ -14,3 +14,4 @@ public/stylesheets
 *.swn
 .DS_Store
 config/.DS_Store
+Gemfile.lock
