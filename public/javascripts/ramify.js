@@ -34,9 +34,9 @@ var RAMIFY = {
     return this.host + '/javascripts/' + path + '.js';
   },
 
-  loadFrame: function(){
+  loadFrame: function(path){
     var iframe = RAMIFY.$("<iframe>").attr({
-      'src' : RAMIFY.host,
+      'src' : RAMIFY.host + (path || ''),
       'width' : '950',
       'height' : '800',
       'frameborder': '0',
