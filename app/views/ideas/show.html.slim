@@ -59,7 +59,7 @@
         = render 'formatting_tips'
     .versions
       .text
-        h1= t('.versions.title')
+        //h1= t('.versions.title')
         - if @versions.empty?
           em= t('.versions.empty.html', :link => link_to(t('.versions.empty.link'), '#fork'))
         - else
