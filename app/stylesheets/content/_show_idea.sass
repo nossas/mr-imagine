@@ -109,7 +109,7 @@
           font-family: "Folk"
           display: block
           padding: 8px 0
-          margin-right: 12px
+          margin-right: 70px
           text-align: center
           +transition(none)
           +transition(color)
@@ -120,26 +120,26 @@
             border-bottom: none
             padding-bottom: 24px
             position: relative
-    .buttons
-      +grid(5)
-      +grid-push(7)
+  .buttons
+    +grid(5)
+    +grid-push(7)
+    +alpha
+    +omega
+    margin-bottom: 8px
+    a
+      +button
+      text-align: center
+    .fork_idea
+      +grid(3)
       +alpha
       +omega
-      margin-bottom: 8px
-      a
-        +button
-        text-align: center
-      .fork_idea
-        +grid(3)
-        +alpha
-        +omega
-        float: right
-      .remove_idea
-        +grid(2)
-        +alpha
-        +omega
-        float: right
-        margin-left: $ninesixty-gutter-width
+      float: right
+    .remove_idea
+      +grid(2)
+      +alpha
+      +omega
+      float: right
+      margin-left: $ninesixty-gutter-width
   .content
     +grid(12)
     +alpha
@@ -155,14 +155,23 @@
     .text
       +grid(7)
       +alpha
-      .attribute
-        margin-top: 14px
-        padding-bottom: 16px
-        min-height: 40px
-      .placeholder
+      #icon
+        float:left
+      .placeholder_edit
+        +alpha
+        +grid(6)
         font-size: 16px
         line-height: 16px
-        color: $green
+        color: $blue
+        float: right
+      .attribute.editable
+        margin-top: 24px
+    .placeholder
+      background-color: $light_green
+      color: #555
+      font-size: 18px
+      +border-radius(6px)
+      padding: 14px 6px 14px 14px
     .info
       +grid(5)
       +omega

@@ -46,17 +46,20 @@
       - if can? :destroy, @idea
         .remove_idea= link_to t('.remove_idea'), '#remove'
       .fork_idea= link_to t('.fork_idea'), '#fork'
+
   .content
     .description
       .text
         //h1= t('.menu.description')
         - if can? :edit, @idea
-          .placeholder= t('.placeholders.description_html')
+          .placeholder_edit= t('.placeholders.description_html')
+          = image_tag 'icons/idea.png', :html => {:id => 'icon' }
         .attribute class=("editable" if can? :edit, @idea) data-attribute="description" data-raw=@idea.description data-raw-attribute="description_html"
           == @idea.description_html
       .info
         .comments= render :partial => 'shared/comments', :locals => { :url => "#{idea_url(@idea)}#description" }
         = render 'formatting_tips'
+
     .versions
       .text
         //h1= t('.versions.title')
@@ -83,6 +86,7 @@
                     .merge= link_to t('.versions.merge'), "#merge/#{version.id}"
       .info
         .placeholder= t('.placeholders.versions_html')
+
   .footer
     .license= link_to image_tag('cc_by.png'), "http://creativecommons.org/licenses/by/3.0/br/", :target => :_blank
 
