@@ -44,4 +44,4 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem "jasmine"
   gem 'capybara-webkit' # dependency: QT
-end
+  end

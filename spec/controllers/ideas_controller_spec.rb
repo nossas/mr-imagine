@@ -57,4 +57,48 @@ describe IdeasController do
       its(:status){ should == 200 }
     end
   end
+
+  describe "POST create_fork_idea" do
+    before do
+      @idea_owner = Factory.create(:user)
+      @current_user = Factory.create(:user)
+
+      @idea = mock_model(Idea, :id => 1, :user_id => @idea_owner.id)
+      @fork = mock_model(Idea, :id => 2, :user_id => @current_user.id)
+      
+      Idea.should_receive(:find).twice.with(@idea.id).and_return(@idea)
+      @idea.should_receive(:create_fork).with(@current_user).and_return(@fork)
+    end
+
+    context "when iframe is true and user is logged in" do   
+      before do 
+        session[:iframe] = true
+        session[:user_id] = @current_user.id
+        post :create_fork, :locale => :pt, :id => @idea.id, :iframe => true
+      end
+      its(:status){ should == 302 }
+      it { should redirect_to idea_path(@fork) }
+    end
+
+    context "when iframe is nil and user is logged in" do
+      before do
+        session[:iframe] = nil
+        session[:user_id] = @current_user.id
+        post :create_fork, :locale => :pt, :id => @idea.id
+      end
+      its(:status){ should == 302 }
+      it { should redirect_to idea_path(@fork) }
+    end
+
+    context "when iframe is true and user is NOT logged" do
+      before do
+        session[:iframe] = true
+        session[:user_id] = nil
+        post :create_fork, :locale => :pt, :id => @idea.id, :iframe => true
+      end
+      # Check later for rescue_from CanCan:AccessDenied
+      # its(:status) { should == :unauthorized } 
+    end
+
+  end
 end

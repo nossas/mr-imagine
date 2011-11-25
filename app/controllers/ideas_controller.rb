@@ -11,7 +11,7 @@ class IdeasController < ApplicationController
 
 
 
-  def index()
+  def index
     index! do |format|
       format.html do
        @featured = Idea.featured.primary.limit(4).all
@@ -33,7 +33,7 @@ class IdeasController < ApplicationController
     @categories = Category.with_ideas.order(:name).all
   end
 
- def show()
+ def show
     show! do
       @editable = (current_user and current_user == @idea.user)
       @versions = @idea.versions.order("created_at DESC").all

@@ -2,7 +2,6 @@ require 'spec_helper'
 require "cancan/matchers"
 
 describe Category do
-
   it "should enable root user to manage everything" do
     user = Factory.build(:user, :admin => true)
     user2 = Factory.build(:user)
@@ -22,7 +21,7 @@ describe Category do
     idea1 = Factory.build(:idea, :user => user1)
     idea2 = Factory.build(:idea, :user => user2)
     ability = Ability.new(user1)
-    
+
     ability.should_not be_able_to(:manage, user2)
     ability.should_not be_able_to(:manage, idea2)
     ability.should be_able_to(:manage, user1)
@@ -48,10 +47,8 @@ describe Category do
   end
 
   it "shouldn't be able to fork his own idea" do
-    user1 = Factory.build(:user)
-    user1.save
-    idea1 = Factory.build(:idea, :user => user1)
-    idea1.save
+    user1 = Factory.create(:user)
+    idea1 = Factory.create(:idea, :user => user1)
     ability = Ability.new(user1)
     ability.should_not be_able_to(:create_fork, idea1)
   end
