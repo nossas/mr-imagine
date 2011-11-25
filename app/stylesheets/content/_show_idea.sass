@@ -43,11 +43,11 @@
     .social
       +grid(2)
       +omega
-      .fb_like
-        display: inline
+      .fb_fix
+        +grid(1)
+        overflow: hidden
+        .fb_like
       .twitter_share
-        display: inline  
-        //padding: 2px 0 0
 
   .changed
     +grid(12)
@@ -89,9 +89,8 @@
               &:hover
                 color: white
   .menu
-    +grid(12)
+    +grid(7)
     +alpha
-    +omega
     position: relative
     ul
       +grid(7)
@@ -122,12 +121,8 @@
             position: relative
   .buttons
     +grid(5)
-    +grid-push(7)
-    +alpha
-    +omega
     margin-bottom: 8px
-    border-top: 1px $blue dotted
-    padding-top: 14px
+    padding-top: 20px
     a
       +button
       text-align: center
@@ -146,7 +141,6 @@
     +grid(12)
     +alpha
     +omega
-    overflow: auto
     padding: 20px 0
     min-height: 432px
     h1
@@ -157,8 +151,11 @@
     .text
       +grid(7)
       +alpha
+      margin-top: 40px 
+   
       #icon
         float:left
+      
       .placeholder_edit
         +alpha
         +grid(6)
@@ -166,8 +163,10 @@
         line-height: 16px
         color: $blue
         float: right
+      
       .attribute.editable
         margin-top: 24px
+    
     .placeholder
       background-color: $light_green
       color: #555
@@ -176,8 +175,9 @@
       padding: 14px 6px 14px 14px
     .info
       +grid(5)
-      //+grid-push(7)
       +omega
+      .comments
+        margin-top: 35px
       .formatting_tips
         font-size: 16px
         padding-right: 10px
@@ -197,7 +197,10 @@
 
         ul 
           li
-            margin: 0 20px 8px 16px
+            margin: 0 32px 9px 16px
+            font-size: 15px
+            line-height: 19px
+            
 
     img
       max-width: 540px

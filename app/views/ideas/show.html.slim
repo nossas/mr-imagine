@@ -24,7 +24,8 @@
         p class=("editable" if can? :edit, @idea) data-attribute="headline" data-raw=@idea.headline data-maxlength=140 data-singleline=true
           = @idea.headline
     .social
-      .fb_like= render :partial => 'shared/fb_like', :locals => { :url => root_url, :show_faces => false, :width => '60', :layout => 'box_count' }
+      .fb_fix
+        .fb_like= render :partial => 'shared/fb_like', :locals => { :url => root_url, :show_faces => false, :width => '60', :layout => 'box_count' }
       .twitter_share= render :partial => 'shared/twitter_share', :locals => { :url => root_url, :count => 'vertical' }
 
     - if can? :edit, @idea
@@ -42,7 +43,7 @@
       li
         a href="#versions"
           = t('.menu.versions')
-    .buttons
+    //.buttons
       - if can? :destroy, @idea
         .remove_idea= link_to t('.remove_idea'), '#remove'
       .fork_idea= link_to t('.fork_idea'), '#fork'
@@ -50,19 +51,21 @@
   .content
     .description
       .text
-        //h1= t('.menu.description')
         - if can? :edit, @idea
           .placeholder_edit= t('.placeholders.description_html')
-          = image_tag 'icons/idea.png', :html => {:id => 'icon' }
+          = image_tag 'icons/idea.png', :html => {:id => 'icon'}
         .attribute class=("editable" if can? :edit, @idea) data-attribute="description" data-raw=@idea.description data-raw-attribute="description_html"
           == @idea.description_html
+        .buttons
+          - if can? :destroy, @idea
+            .remove_idea= link_to t('.remove_idea'), '#remove'
+          .fork_idea= link_to t('.fork_idea'), '#fork'
       .info
         .comments= render :partial => 'shared/comments', :locals => { :url => "#{idea_url(@idea)}#description" }
         = render 'formatting_tips'
 
     .versions
       .text
-        //h1= t('.versions.title')
         - if @versions.empty?
           em= t('.versions.empty.html', :link => link_to(t('.versions.empty.link'), '#fork'))
         - else
