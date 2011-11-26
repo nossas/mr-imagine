@@ -123,7 +123,7 @@ describe IdeasController do
   describe "PUT merge_idea" do
 
     before do
-      Idea.should_receive(:find).twice.with(@idea.id).and_return(@idea)
+      Idea.stub!(:find, @idea.id).and_return(@idea)
       @idea.stub!(:merge!, @fork.id).and_return(@idea)
     end
 
