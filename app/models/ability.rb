@@ -15,6 +15,8 @@ class Ability
         idea.user_id == user.id
       end
       can :create_fork, Idea
+      can :merge, Idea
+      cannot :merge, Idea, :user_id => user.id
       cannot :create_fork, Idea, :user_id => user.id
 
       can :manage, :all if user.admin?

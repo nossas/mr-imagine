@@ -1,6 +1,12 @@
 class ApplicationController < ActionController::Base
 
   protect_from_forgery
+  
+  rescue_from CanCan::AccessDenied do |e|
+    render :json => { :status => :error }, :status => 401 if request.xhr?
+    render :file => "public/401.html", :status => :unauthorized if not request.xhr?
+  end
+
   helper_method :current_user, :replace_locale, :site_name, :facebook_admins, :analytics_account, :base_url
   before_filter :set_locale
   before_filter :detect_locale
