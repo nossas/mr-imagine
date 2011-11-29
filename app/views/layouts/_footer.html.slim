@@ -1,1 +1,5 @@
 #footer_links
+= yield(:javascripts)
+javascript:
+  $.postMessage('login', 'http://localhost:3000/paginas/imagine');
+  
