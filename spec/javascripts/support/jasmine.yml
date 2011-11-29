@@ -11,7 +11,14 @@
 #   - dist/**/*.js
 #
 src_files:
-  - public/javascripts/**/*.js
+  - public/javascripts/jquery-1.6.1.min.js
+  - public/javascripts/jquery.ba-postmessage.js
+  - public/javascripts/underscore-min.js
+  - public/javascripts/backbone-min.js
+  - public/javascripts/collections/*.js
+  - public/javascripts/models/*.js
+  - public/javascripts/views/*.js
+  - public/javascripts/ramify.js
 
 # stylesheets
 #
