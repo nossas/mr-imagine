@@ -16,7 +16,7 @@ describe("RAMIFY", function(){
     });
 
     it("should call loadJS passing loadFrame as callback", function(){
-      expect(RAMIFY.loadJS).toHaveBeenCalledWith(RAMIFY.loadFrame);
+      expect(RAMIFY.loadJS).toHaveBeenCalledWith(jasmine.any(Function));
     });
   });
 
@@ -52,7 +52,7 @@ describe("RAMIFY", function(){
     });
 
     it("should call $script to load ramify's jquery", function(){
-      expect($script).toHaveBeenCalledWith(['http://localhost/javascripts/jquery-1.6.1.min.js'], 'base');
+      expect($script).toHaveBeenCalledWith(['http://localhost/javascripts/jquery-1.6.1.min.js','http://localhost/javascripts/jquery.ba-postmessage.js'], 'base');
     });
 
     it("should call $script ready callback for base", function(){
@@ -75,6 +75,11 @@ describe("RAMIFY", function(){
 
     beforeEach(function(){
       spyOn(RAMIFY, "$").andCallFake(function(selector) { return (selector == "<iframe>" ? iframe : target) });
+
+      //TODO: Test receiveMessage
+      RAMIFY.$.receiveMessage = function(){};
+      spyOn(RAMIFY.$, "receiveMessage");
+
       spyOn(iframe, "attr").andCallThrough();
       spyOn(target, "append");
     });

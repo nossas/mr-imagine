@@ -18,7 +18,7 @@ var RAMIFY = {
   },
 
   loadJS: function(callback){
-    $script([this.scriptURI('jquery-1.6.1.min')], 'base');
+    $script([this.scriptURI('jquery-1.6.1.min'), this.scriptURI('jquery.ba-postmessage')], 'base');
     $script.ready('base', function(){
       RAMIFY.$ = jQuery;
       jQuery.noConflict(true);
@@ -35,6 +35,11 @@ var RAMIFY = {
   },
 
   loadFrame: function(path){
+    RAMIFY.$.receiveMessage(function(e){
+      if(e.data == 'login'){
+        $.facebox({div: '#login'});
+      }
+    }, RAMIFY.host );
     var iframe = RAMIFY.$("<iframe>").attr({
       'src' : RAMIFY.host + (path || ''),
       'width' : '950',
@@ -43,6 +48,7 @@ var RAMIFY = {
       'name' : 'ramify-content'
     });
     RAMIFY.$("#main").append(iframe);
+
   }
 
 

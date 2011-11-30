@@ -8,6 +8,11 @@ class SessionsController < ApplicationController
     redirect_to "/auth/#{params[:provider]}"
   end
 
+  def create_meurio
+    # TODO: Luiz please create this method!
+    render :json => {:sid => request.session_options[:id]}
+  end
+
   def create
     auth = request.env["omniauth.auth"]
     user = User.find_with_omni_auth(auth["provider"], auth["uid"].to_s)

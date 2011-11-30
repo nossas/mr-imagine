@@ -6,4 +6,7 @@ html xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml"
     #container
       #content
         = yield
+        - content_for :javascripts do
+          = javascript_include_tag 'jquery.ba-postmessage'
       #footer= render 'layouts/footer'
+
