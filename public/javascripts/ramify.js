@@ -48,21 +48,6 @@ var RAMIFY = {
       'name' : 'ramify-content'
     });
     RAMIFY.$("#main").append(iframe);
-
   }
-
-
-  /*
-  loadStylesheets: function(){
-    var stylesheet = RAMIFY.$('<link>')
-      .attr({
-        'href': RAMIFY.styleURI('screen'),
-        'rel': 'stylesheet',
-        'media': 'screen',
-        'type': 'text/css'
-      });
-    RAMIFY.$('head').append(stylesheet);
-  }*/
-
 };
 RAMIFY.init();
