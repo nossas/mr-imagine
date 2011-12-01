@@ -18,8 +18,7 @@ class IdeasController < ApplicationController
         @popular = Idea.popular.limit(4).all
         @recent = Idea.not_featured.recent.limit(4).all
         @count = Idea.count
-        return render :index, :layout => "iframe" if session[:iframe]
-
+        return render :index, :layout => "iframe" if session[:iframe] == 'true'
       end
       format.json do
         @ideas = Idea.search(params[:search]).page params[:page]
