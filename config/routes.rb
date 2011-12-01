@@ -4,13 +4,20 @@ Ramify::Application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-
+  # Ramify Authentication
   post "/auth" => "sessions#auth", :as => :auth
   get "/post_auth" => "sessions#post_auth", :as => :post_auth
   match "/auth/:provider/callback" => "sessions#create"
   match "/auth/failure" => "sessions#failure"
+
+  # MeuRio Authentication
+  post "/auth/meurio" => "sessions#create_meurio", :as => :meurio_auth
+
+
+
   match "/logout" => "sessions#destroy", :as => :logout
   match "/admin/logout" => "sessions#destroy", :as => :logout
+
 
   match "/explore" => "ideas#explore", :as => :explore
 
