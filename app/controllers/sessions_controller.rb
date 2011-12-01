@@ -1,16 +1,31 @@
 class SessionsController < ApplicationController
 
   skip_before_filter :detect_locale
-  
+  skip_before_filter :verify_authenticity_token, :only => [:create_meurio]
+
   def auth
     session[:return_to] = params[:return_to]
     session[:remember_me] = params[:remember_me]
     redirect_to "/auth/#{params[:provider]}"
   end
 
+
   def create_meurio
-    # TODO: Luiz please create this method!
-    render :json => {:sid => request.session_options[:id]}
+    #render :json => {:sid => request.session_options[:id]}
+    auth = request.env["omniauth.auth"]
+    user = User.find_with_omni_auth(auth[:provider], auth[:uid].to_s)
+    api_secret = Configuration.find_by_name("api_secret")
+    new_user = false
+    if not user
+      user = User.create_with_omniauth(auth)
+      new_user = true
+    end
+
+    if params[:api_secret] and params[:api_secret] == api_secret.value
+      render :json => { :sid => request.session_options[:id] }, :status => :found
+    else
+     redirect_to :root, :status => :not_acceptable
+    end
   end
 
   def create
@@ -53,5 +68,5 @@ class SessionsController < ApplicationController
     flash[:success] = t('sessions.post_auth.success', :name => user.display_name)
     redirect_to :root
   end
-  
+
 end
