@@ -19,7 +19,7 @@ describe IdeasController do
     end
     context "when iframe is true" do
       before do
-        get :index, :locale => :pt, :iframe => true
+        get :index, :locale => :pt, :iframe => 'true'
       end
       its(:status){ should == 200 }
       it{ should render_template 'layouts/iframe' }
