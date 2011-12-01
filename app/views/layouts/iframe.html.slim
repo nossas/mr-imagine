@@ -4,6 +4,7 @@ html xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml"
   body#site.ramify
     = render :partial => 'layouts/flash', :locals => { :flash => flash } unless flash.empty?
     #container
+      = render 'layouts/new_idea'
       #content
         = yield
         - content_for :javascripts do

@@ -37,7 +37,7 @@ var RAMIFY = {
   loadFrame: function(path){
     RAMIFY.$.receiveMessage(function(e){
       if(e.data == 'login'){
-        $.facebox({div: '#login'});
+        //$.facebox({div: '#login'});
       }
     }, RAMIFY.host );
     var iframe = RAMIFY.$("<iframe>").attr({
