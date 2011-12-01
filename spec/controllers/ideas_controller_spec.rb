@@ -42,6 +42,15 @@ describe IdeasController do
       it{ assigns(:count).should == "ideas_count" }
       it{ session[:iframe].should be_nil }
     end
+
+    context "when iframe has a previous value" do
+      before do
+        session[:iframe] = true
+        get :index, :locale => :pt, :iframe => false
+      end
+      its(:status){ should == 200 }
+      it{ session[:iframe].should be_false }
+    end
   end
 
   describe 'GET show' do

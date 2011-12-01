@@ -119,6 +119,6 @@ class IdeasController < ApplicationController
   end
   protected
   def set_iframe_session
-    session[:iframe] ||= params[:iframe]
+    session[:iframe] = params[:iframe] unless params[:iframe].nil?
   end
 end
