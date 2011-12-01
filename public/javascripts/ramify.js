@@ -27,11 +27,11 @@ var RAMIFY = {
   },
 
   styleURI: function(path){
-    return this.host + '/stylesheets/' + path + '.css';
+    return RAMIFY.host + '/stylesheets/' + path + '.css';
   },
 
   scriptURI: function(path){
-    return this.host + '/javascripts/' + path + '.js';
+    return RAMIFY.host + '/javascripts/' + path + '.js';
   },
 
   loadFrame: function(path){
