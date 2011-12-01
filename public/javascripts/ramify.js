@@ -50,4 +50,3 @@ var RAMIFY = {
     RAMIFY.$("#main").append(iframe);
   }
 };
-RAMIFY.init();
