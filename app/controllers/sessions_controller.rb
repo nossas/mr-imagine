@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
 
 
   def create_meurio
-    #render :json => {:sid => request.session_options[:id]}
     auth = request.env["omniauth.auth"]
     user = User.find_with_omni_auth(auth[:provider], auth[:uid].to_s)
     api_secret = Configuration.find_by_name("api_secret")
