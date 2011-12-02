@@ -52,7 +52,13 @@ describe("RAMIFY", function(){
     });
 
     it("should call $script to load ramify's jquery", function(){
-      expect($script).toHaveBeenCalledWith(['http://localhost/javascripts/jquery-1.6.1.min.js','http://localhost/javascripts/jquery.ba-postmessage.js'], 'base');
+      expect($script).toHaveBeenCalledWith('http://localhost/javascripts/jquery-1.6.1.min.js', jasmine.any(Function));
+    });
+
+    it("should bundle jquery.ba-postmessage into base after loading jQuery", function(){
+      $script.andCallFake(function(scriptName, callback){ if($.isFunction(callback)) callback(); });
+      RAMIFY.loadJS(loadFramesCallback);
+      expect($script).toHaveBeenCalledWith('http://localhost/javascripts/jquery.ba-postmessage.js', 'base');
     });
 
     it("should call $script ready callback for base", function(){

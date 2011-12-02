@@ -18,7 +18,9 @@ var RAMIFY = {
   },
 
   loadJS: function(callback){
-    $script([RAMIFY.scriptURI('jquery-1.6.1.min'), RAMIFY.scriptURI('jquery.ba-postmessage')], 'base');
+    $script(RAMIFY.scriptURI('jquery-1.6.1.min'), function(){
+      $script(RAMIFY.scriptURI('jquery.ba-postmessage'), 'base');
+    });
     $script.ready('base', function(){
       RAMIFY.$ = jQuery;
       jQuery.noConflict(true);
