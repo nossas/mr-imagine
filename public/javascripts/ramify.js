@@ -12,43 +12,44 @@
  * Should be the only file included from external projects
  */
 var RAMIFY = {
-  host: 'http://localhost:3001',
-  init: function(){
-    this.loadJS(function(){ RAMIFY.loadFrame('/?iframe=true') });
+  init: function(options){
+    this.options = options || {};
+    if(!this.options.path){
+      this.options.path = '/?iframe=true';
+    }
+    this.loadJS();
   },
 
   loadJS: function(callback){
-    $script(RAMIFY.scriptURI('jquery-1.6.1.min'), function(){
-      $script(RAMIFY.scriptURI('jquery.ba-postmessage'), 'base');
-    });
-    $script.ready('base', function(){
-      RAMIFY.$ = jQuery;
-      jQuery.noConflict(true);
-      callback();
-    });
+    $script(RAMIFY.scriptURI('jquery-1.6.1.min'), RAMIFY.onJQueryLoad);
   },
 
-  styleURI: function(path){
-    return RAMIFY.host + '/stylesheets/' + path + '.css';
+  onJQueryLoad: function(){
+    $script(RAMIFY.scriptURI('jquery.ba-postmessage'), RAMIFY.onBaseLoad);
   },
 
-  scriptURI: function(path){
-    return RAMIFY.host + '/javascripts/' + path + '.js';
+  onBaseLoad: function(){
+    RAMIFY.$ = jQuery;
+    jQuery.noConflict(true);
+    RAMIFY.loadFrame();
   },
 
   loadFrame: function(path){
     RAMIFY.$.receiveMessage(function(e){
       if(e.data == 'login'){
-        //$.facebox({div: '#login'});
       }
     }, RAMIFY.host );
     var iframe = RAMIFY.$("<iframe>").attr({
-      'src' : RAMIFY.host + (path || ''),
+      'src' : RAMIFY.options.host + (RAMIFY.options.path || ''),
       'width' : '950',
       'height' : '800',
       'frameborder': '0',
       'name' : 'ramify-content'
     });
     RAMIFY.$("#main").append(iframe);
+  },
+
+  scriptURI: function(path){
+    return RAMIFY.options.host + '/javascripts/' + path + '.js';
   }
 };

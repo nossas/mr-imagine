@@ -1,6 +1,7 @@
 describe("RAMIFY", function(){
   beforeEach(function(){
-    RAMIFY.host = 'http://localhost';
+    RAMIFY.options = {host: 'http://localhost'};
+    $script = jasmine.createSpy('$script');
   });
 
   describe("$script", function(){
@@ -15,63 +16,57 @@ describe("RAMIFY", function(){
       RAMIFY.init();
     });
 
-    it("should call loadJS passing loadFrame as callback", function(){
-      expect(RAMIFY.loadJS).toHaveBeenCalledWith(jasmine.any(Function));
+    it("should put parameter in options object", function(){
+      RAMIFY.init('options object');
+      expect(RAMIFY.options).toEqual('options object');
+    });
+
+    it("should call loadJS", function(){
+      expect(RAMIFY.loadJS).toHaveBeenCalledWith();
     });
   });
 
-  describe("styleURI", function(){
-    it("should concatenate the host, CSS path, and .css to the parameter", function(){
-      expect(RAMIFY.styleURI('test')).toEqual('http://localhost/stylesheets/test.css');
-    });
-  });
-
-  describe("scriptURI", function(){
+  describe("#scriptURI", function(){
     it("should concatenate the host, JS path, and .js to the parameter", function(){
       expect(RAMIFY.scriptURI('test')).toEqual('http://localhost/javascripts/test.js');
     });
   });
 
-  describe("loadJS", function(){
-    var callback = function(){};
-    // Now we're calling the LoadFrameCallback, instead of LoadStyleSheets
-    var loadFramesCallback = null;
+  describe("#onJQueryLoad", function(){
+    it("should call $script to load jquery.ba-postmessage to call onBaseLoad", function(){
+      RAMIFY.onJQueryLoad();
+      expect($script).toHaveBeenCalledWith('http://localhost/javascripts/jquery.ba-postmessage.js', RAMIFY.onBaseLoad);
+    });
+  });
 
+  describe("#onBaseLoad", function(){
     beforeEach(function(){
-      // We need to spy on some global functions here, so no var for them
-      jQuery = {noConflict: function(){}};
-      $script = jasmine.createSpy('$script');
-      $script.ready = function(){};
-
-      spyOn($script, "ready");
+      spyOn(RAMIFY, "loadFrame");
       spyOn(jQuery, "noConflict");
-      loadFramesCallback = jasmine.createSpy('loadFrame');
-
-      $script.ready.andCallFake(function(name, callback){ callback(); });
-      RAMIFY.loadJS(loadFramesCallback);
     });
 
-    it("should call $script to load ramify's jquery", function(){
-      expect($script).toHaveBeenCalledWith('http://localhost/javascripts/jquery-1.6.1.min.js', jasmine.any(Function));
+    it("should setup JQuery no conflict before loadFrame", function(){
+      $script.andCallFake(function(){
+        expect(RAMIFY.$).toEqual(jQuery);
+        expect(jQuery.noConflict).toHaveBeenCalledWith(true);
+      });
+      RAMIFY.onBaseLoad();
     });
 
-    it("should bundle jquery.ba-postmessage into base after loading jQuery", function(){
-      $script.andCallFake(function(scriptName, callback){ if($.isFunction(callback)) callback(); });
-      RAMIFY.loadJS(loadFramesCallback);
-      expect($script).toHaveBeenCalledWith('http://localhost/javascripts/jquery.ba-postmessage.js', 'base');
+    it("should call loadFrame", function(){
+      RAMIFY.onBaseLoad();
+      expect(RAMIFY.loadFrame).toHaveBeenCalled();
     });
 
-    it("should call $script ready callback for base", function(){
-      expect($script.ready).toHaveBeenCalledWith('base', jasmine.any(Function));
+  });
+
+  describe("#loadJS", function(){
+    beforeEach(function(){
+      RAMIFY.loadJS();
     });
 
-    it("should setup jquery in base ready callback", function(){
-      expect(RAMIFY.$).toEqual(jQuery);
-      expect(jQuery.noConflict).toHaveBeenCalledWith(true);
-    });
-
-    it("should call the callback parameter after loading jQuery", function(){
-      expect(loadFramesCallback).toHaveBeenCalled();
+    it("should call $script to load ramify's jquery to call onJQueryLoad", function(){
+      expect($script).toHaveBeenCalledWith('http://localhost/javascripts/jquery-1.6.1.min.js', RAMIFY.onJQueryLoad);
     });
   });
 
@@ -88,12 +83,13 @@ describe("RAMIFY", function(){
 
       spyOn(iframe, "attr").andCallThrough();
       spyOn(target, "append");
+      RAMIFY.options = {host: 'http://test', path: '/ideias/iframe'};
     });
 
-    it("should append iframe to target element with path", function(){
-      RAMIFY.loadFrame('/ideias/iframe');
+    it("should append iframe to target element with host and path from options", function(){
+      RAMIFY.loadFrame();
       expect(iframe.attr).toHaveBeenCalledWith({
-        'src': 'http://localhost/ideias/iframe',
+        'src': 'http://test/ideias/iframe',
         'width': '950',
         'height': '800',
         'frameborder': '0',
@@ -105,7 +101,7 @@ describe("RAMIFY", function(){
       RAMIFY.loadFrame();
       expect(RAMIFY.$).toHaveBeenCalledWith("<iframe>");
       expect(iframe.attr).toHaveBeenCalledWith({
-        'src': 'http://localhost',
+        'src': 'http://test/ideias/iframe',
         'width': '950',
         'height': '800',
         'frameborder': '0',
@@ -115,28 +111,4 @@ describe("RAMIFY", function(){
       expect(target.append).toHaveBeenCalledWith(iframe);
     });
   });
-
-  /**
-  describe("loadStylesheets", function(){
-    var stylesheet = $('<link>');
-    var head = $('<head>');
-    beforeEach(function(){
-      spyOn(RAMIFY, "$").andCallFake(function(selector){ return (selector == '<link>' ? stylesheet : head) });
-      spyOn(stylesheet, "attr").andCallThrough();
-      spyOn(head, "append");
-      RAMIFY.loadStylesheets();
-    });
-
-    it("should append screen.css to the document head", function(){
-      expect(RAMIFY.$).toHaveBeenCalledWith('<link>');
-      expect(stylesheet.attr).toHaveBeenCalledWith({
-        'href': 'http://localhost/stylesheets/screen.css',
-        'rel': 'stylesheet',
-        'media': 'screen',
-        'type': 'text/css'
-      });
-      expect(RAMIFY.$).toHaveBeenCalledWith('head');
-      expect(head.append).toHaveBeenCalledWith(stylesheet);
-    });
-  }); **/
 });
