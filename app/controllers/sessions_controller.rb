@@ -11,20 +11,14 @@ class SessionsController < ApplicationController
 
 
   def create_meurio
-    auth = request.env["omniauth.auth"]
-    user = User.find_with_omni_auth(auth[:provider], auth[:uid].to_s)
+    # Fail fast when api_secret is wrong
     api_secret = Configuration.find_by_name("api_secret")
-    new_user = false
-    if not user
-      user = User.create_with_omniauth(auth)
-      new_user = true
-    end
+    return redirect_to :root, :status => :not_acceptable unless params[:uid] and params[:api_secret] and params[:api_secret] == api_secret.value
+    provider = 'meu_rio'
 
-    if params[:api_secret] and params[:api_secret] == api_secret.value
-      render :json => { :sid => request.session_options[:id] }, :status => :found
-    else
-     redirect_to :root, :status => :not_acceptable
-    end
+    user = User.find_with_omni_auth(provider, params[:uid]) || User.create!(:provider => provider, :uid => params[:uid])
+    session[:user_id] = user.id
+    render :json => { :sid => request.session_options[:id] }, :status => :found
   end
 
   def create
