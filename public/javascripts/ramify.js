@@ -20,7 +20,7 @@ var RAMIFY = {
     this.loadJS();
   },
 
-  loadJS: function(callback){
+  loadJS: function(){
     $script(RAMIFY.scriptURI('jquery-1.6.1.min'), RAMIFY.onJQueryLoad);
   },
 
@@ -34,7 +34,7 @@ var RAMIFY = {
     RAMIFY.loadFrame();
   },
 
-  loadFrame: function(path){
+  loadFrame: function(){
     RAMIFY.$.receiveMessage(function(e){
       if(e.data == 'login'){
       }
