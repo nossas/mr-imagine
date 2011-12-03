@@ -12,6 +12,7 @@
  * Should be the only file included from external projects
  */
 var RAMIFY = {
+  sid: null,
   init: function(options){
     this.options = options || {};
     if(!this.options.path){
@@ -25,7 +26,7 @@ var RAMIFY = {
   },
 
   onJQueryLoad: function(){
-    $script(RAMIFY.scriptURI('jquery.ba-postmessage'), RAMIFY.onBaseLoad);
+    $script([RAMIFY.scriptURI('jquery.ba-postmessage'), RAMIFY.scriptURI('store')], RAMIFY.onBaseLoad);
   },
 
   onBaseLoad: function(){

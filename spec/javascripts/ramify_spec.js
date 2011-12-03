@@ -35,7 +35,7 @@ describe("RAMIFY", function(){
   describe("#onJQueryLoad", function(){
     it("should call $script to load jquery.ba-postmessage to call onBaseLoad", function(){
       RAMIFY.onJQueryLoad();
-      expect($script).toHaveBeenCalledWith('http://localhost/javascripts/jquery.ba-postmessage.js', RAMIFY.onBaseLoad);
+      expect($script).toHaveBeenCalledWith(['http://localhost/javascripts/jquery.ba-postmessage.js', 'http://localhost/javascripts/store.js'], RAMIFY.onBaseLoad);
     });
   });
 
