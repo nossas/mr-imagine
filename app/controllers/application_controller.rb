@@ -106,5 +106,11 @@ class ApplicationController < ActionController::Base
   def require_admin
     require_condition((can? :manage, :all), t('require_admin'))
   end
-  
+
+  def create_session_from_params
+    if params[:sid]
+      session_data = ActiveRecord::SessionStore::Session.find_by_session_id(params[:sid]).data
+      session_data.each{ |k,v| session[k] = v }
+    end
+  end
 end
