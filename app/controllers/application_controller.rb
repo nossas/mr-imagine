@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :replace_locale, :site_name, :facebook_admins, :analytics_account, :base_url
   before_filter :set_locale
   before_filter :detect_locale
+  before_filter :create_session_from_params
 
   private
   
