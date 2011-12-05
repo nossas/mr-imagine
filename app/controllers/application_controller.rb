@@ -110,6 +110,7 @@ class ApplicationController < ActionController::Base
 
   def create_session_from_params
     if params[:sid]
+      reset_session
       session_record = ActiveRecord::SessionStore::Session.find_by_session_id(params[:sid])
       if session_record
         session_data = session_record.data

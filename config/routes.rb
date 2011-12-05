@@ -12,6 +12,7 @@ Ramify::Application.routes.draw do
 
   # MeuRio Authentication
   post "/auth/meurio" => "sessions#create_meurio", :as => :meurio_auth
+  get "/destroy/meurio" => "sessions#destroy_meurio", :as => :meurio_destroy
 
 
 

@@ -12,6 +12,18 @@ describe SessionsController do
   end
 
 
+  describe "GET #destroy_meurio" do
+    before do
+      session[:user_id] = 666
+      request.session_options[:id] = '123'
+      post :destroy_meurio
+    end
+
+    its(:status) { should == 302 }
+    its(:body) { should == {:sid => '123'}.to_json }
+    it{ session[:user_id].should be_nil }
+  end
+
   describe "POST #create_meurio" do
     before do
       Configuration.should_receive(:find_by_name).with(@api.name).and_return(@api)

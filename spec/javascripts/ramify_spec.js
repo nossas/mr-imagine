@@ -2,6 +2,7 @@ describe("RAMIFY", function(){
   beforeEach(function(){
     RAMIFY.options = {host: 'http://localhost'};
     $script = jasmine.createSpy('$script');
+    $script.ready = jasmine.createSpy('$script');
   });
 
   describe("$script", function(){
@@ -21,6 +22,11 @@ describe("RAMIFY", function(){
       expect(RAMIFY.options).toEqual('options object');
     });
 
+    it("should put sid parameter in RAMIFY.sid", function(){
+      RAMIFY.init({sid: 'test sid'});
+      expect(RAMIFY.sid).toEqual('test sid');
+    });
+
     it("should call loadJS", function(){
       expect(RAMIFY.loadJS).toHaveBeenCalledWith();
     });
@@ -35,13 +41,14 @@ describe("RAMIFY", function(){
   describe("#onJQueryLoad", function(){
     it("should call $script to load jquery.ba-postmessage to call onBaseLoad", function(){
       RAMIFY.onJQueryLoad();
-      expect($script).toHaveBeenCalledWith(['http://localhost/javascripts/jquery.ba-postmessage.js', 'http://localhost/javascripts/store.js'], RAMIFY.onBaseLoad);
+      expect($script).toHaveBeenCalledWith(['http://localhost/javascripts/jquery.ba-postmessage.js', 'http://localhost/javascripts/store.js'], 'base');
+      expect($script.ready).toHaveBeenCalledWith('base', RAMIFY.onBaseLoad);
     });
   });
 
   describe("#onBaseLoad", function(){
     beforeEach(function(){
-      spyOn(RAMIFY, "loadFrame");
+      window.Store = function(){};
       spyOn(jQuery, "noConflict");
     });
 
@@ -53,9 +60,9 @@ describe("RAMIFY", function(){
       RAMIFY.onBaseLoad();
     });
 
-    it("should call loadFrame", function(){
+    it("should assign session store to RAMIFY.sesion", function(){
       RAMIFY.onBaseLoad();
-      expect(RAMIFY.loadFrame).toHaveBeenCalled();
+      expect(RAMIFY.session).toEqual(jasmine.any(Store));
     });
 
   });
@@ -84,12 +91,19 @@ describe("RAMIFY", function(){
       spyOn(iframe, "attr").andCallThrough();
       spyOn(target, "append");
       RAMIFY.options = {host: 'http://test', path: '/ideias/iframe'};
+      RAMIFY.sid = 'session_id';
+      $script.ready.andCallFake(function(bundle, callback){ callback(); });
+    });
+
+    it("should call only when base is ready", function(){
+      RAMIFY.loadFrame();
+      expect($script.ready).toHaveBeenCalledWith('base', jasmine.any(Function));
     });
 
     it("should append iframe to target element with host and path from options", function(){
       RAMIFY.loadFrame();
       expect(iframe.attr).toHaveBeenCalledWith({
-        'src': 'http://test/ideias/iframe?iframe=true&sid=',
+        'src': 'http://test/ideias/iframe?iframe=true&sid=session_id',
         'width': '950',
         'height': '800',
         'frameborder': '0',
@@ -101,7 +115,7 @@ describe("RAMIFY", function(){
       RAMIFY.loadFrame();
       expect(RAMIFY.$).toHaveBeenCalledWith("<iframe>");
       expect(iframe.attr).toHaveBeenCalledWith({
-        'src': 'http://test/ideias/iframe?iframe=true&sid=',
+        'src': 'http://test/ideias/iframe?iframe=true&sid=session_id',
         'width': '950',
         'height': '800',
         'frameborder': '0',

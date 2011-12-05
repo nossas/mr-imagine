@@ -13,8 +13,12 @@
  */
 var RAMIFY = {
   sid: null,
+  session: null,
   init: function(options){
     this.options = options || {};
+    if(this.options.sid){
+      RAMIFY.sid = this.options.sid;
+    }
     this.loadJS();
   },
 
@@ -23,28 +27,70 @@ var RAMIFY = {
   },
 
   onJQueryLoad: function(){
-    $script([RAMIFY.scriptURI('jquery.ba-postmessage'), RAMIFY.scriptURI('store')], RAMIFY.onBaseLoad);
+    $script(RAMIFY.scriptURI('jquery.ba-postmessage'), 'base');
+    $script.ready('base', RAMIFY.onBaseLoad);
+  },
+
+  logout: function(callback){
+    $script.ready('store', function(){
+      RAMIFY.$.get('/destroy_ramify_session', null, null, 'json')
+        .success(function(data){
+          RAMIFY.sid = data.sid;
+          RAMIFY.getSession().set('logged', false);
+          callback();
+        })
+        .error(function(data){
+          callback();
+        });
+    });
+  },
+
+  login: function(callback){
+    $script.ready('store', function(){
+      if(!RAMIFY.getSession().get('logged')){
+        RAMIFY.$.get('/create_ramify_session', null, null, 'json')
+        .success(function(data){
+          RAMIFY.sid = data.sid;
+          RAMIFY.getSession().set('logged', true);
+          callback();
+        })
+        .error(function(data){
+        });
+      }
+      else{
+        callback();
+      }
+    });
+  },
+
+  getSession: function(){
+    if(!RAMIFY.session){
+      RAMIFY.session = new Store('ramify_session');
+    }
+    return RAMIFY.session;
   },
 
   onBaseLoad: function(){
     RAMIFY.$ = jQuery;
     jQuery.noConflict(true);
-    RAMIFY.loadFrame();
+    $script(RAMIFY.scriptURI('store'), 'store');
   },
 
   loadFrame: function(){
-    RAMIFY.$.receiveMessage(function(e){
-      if(e.data == 'login'){
-      }
-    }, RAMIFY.host );
-    var iframe = RAMIFY.$("<iframe>").attr({
-      'src' : RAMIFY.options.host + (RAMIFY.options.path || '/') + '?' + ['iframe=true', 'sid=' + (this.options.sid || '')].join('&'),
-      'width' : '950',
-      'height' : '800',
-      'frameborder': '0',
-      'name' : 'ramify-content'
+    $script.ready('store', function(){
+      RAMIFY.$.receiveMessage(function(e){
+        if(e.data == 'login'){
+        }
+      }, RAMIFY.host );
+      var iframe = RAMIFY.$("<iframe>").attr({
+        'src' : RAMIFY.options.host + (RAMIFY.options.path || '/') + '?' + ['iframe=true', 'sid=' + (RAMIFY.sid || '')].join('&'),
+        'width' : '950',
+        'height' : '800',
+        'frameborder': '0',
+        'name' : 'ramify-content'
+      });
+      RAMIFY.$("#main").append(iframe);
     });
-    RAMIFY.$("#main").append(iframe);
   },
 
   scriptURI: function(path){

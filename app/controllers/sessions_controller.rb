@@ -21,6 +21,11 @@ class SessionsController < ApplicationController
     render :json => { :sid => request.session_options[:id] }, :status => :found
   end
 
+  def destroy_meurio
+    session[:user_id] = nil
+    render :json => { :sid => request.session_options[:id] }, :status => :found
+  end
+
   def create
     auth = request.env["omniauth.auth"]
     user = User.find_with_omni_auth(auth["provider"], auth["uid"].to_s)
