@@ -110,8 +110,11 @@ class ApplicationController < ActionController::Base
 
   def create_session_from_params
     if params[:sid]
-      session_data = ActiveRecord::SessionStore::Session.find_by_session_id(params[:sid]).data
-      session_data.each{ |k,v| session[k] = v }
+      session_record = ActiveRecord::SessionStore::Session.find_by_session_id(params[:sid])
+      if session_record
+        session_data = session_record.data
+        session_data.each{ |k,v| session[k] = v }
+      end
     end
   end
 end
