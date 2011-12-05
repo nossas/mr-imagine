@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     return redirect_to :root, :status => :not_acceptable unless params[:uid] and params[:api_secret] and params[:api_secret] == api_secret.value
     provider = 'meu_rio'
 
-    user = User.find_with_omni_auth(provider, params[:uid]) || User.create!(:provider => provider, :uid => params[:uid])
+    user = User.find_with_omni_auth(provider, params[:uid]) || User.create!(:provider => provider, :uid => params[:uid], :name => params[:name])
     session[:user_id] = user.id
     render :json => { :sid => request.session_options[:id] }, :status => :found
   end

@@ -20,9 +20,9 @@ describe SessionsController do
     context "when API secret and UID are present but the user is new" do
       before do
         User.should_receive(:find_with_omni_auth).with('meu_rio', 'SOME_ID').and_return(nil)
-        User.should_receive(:create!).with(:provider => 'meu_rio', :uid => 'SOME_ID').and_return(stub_model(User, :id => 666))
+        User.should_receive(:create!).with(:provider => 'meu_rio', :uid => 'SOME_ID', :name => 'test name').and_return(stub_model(User, :id => 666))
         request.session_options[:id] = '123'
-        post :create_meurio, :api_secret => "SOME_RANDOM_VALUE", :uid => "SOME_ID"
+        post :create_meurio, :api_secret => "SOME_RANDOM_VALUE", :uid => "SOME_ID", :name => 'test name'
       end
       its(:status) { should == 302 }
       its(:body) { should == {:sid => '123'}.to_json }
