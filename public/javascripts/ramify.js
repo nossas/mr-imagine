@@ -15,9 +15,6 @@ var RAMIFY = {
   sid: null,
   init: function(options){
     this.options = options || {};
-    if(!this.options.path){
-      this.options.path = '/?iframe=true';
-    }
     this.loadJS();
   },
 
@@ -41,7 +38,7 @@ var RAMIFY = {
       }
     }, RAMIFY.host );
     var iframe = RAMIFY.$("<iframe>").attr({
-      'src' : RAMIFY.options.host + (RAMIFY.options.path || ''),
+      'src' : RAMIFY.options.host + (RAMIFY.options.path || '/') + '?' + ['iframe=true', 'sid=' + (this.options.sid || '')].join('&'),
       'width' : '950',
       'height' : '800',
       'frameborder': '0',

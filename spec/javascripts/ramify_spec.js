@@ -89,7 +89,7 @@ describe("RAMIFY", function(){
     it("should append iframe to target element with host and path from options", function(){
       RAMIFY.loadFrame();
       expect(iframe.attr).toHaveBeenCalledWith({
-        'src': 'http://test/ideias/iframe',
+        'src': 'http://test/ideias/iframe?iframe=true&sid=',
         'width': '950',
         'height': '800',
         'frameborder': '0',
@@ -101,7 +101,7 @@ describe("RAMIFY", function(){
       RAMIFY.loadFrame();
       expect(RAMIFY.$).toHaveBeenCalledWith("<iframe>");
       expect(iframe.attr).toHaveBeenCalledWith({
-        'src': 'http://test/ideias/iframe',
+        'src': 'http://test/ideias/iframe?iframe=true&sid=',
         'width': '950',
         'height': '800',
         'frameborder': '0',
