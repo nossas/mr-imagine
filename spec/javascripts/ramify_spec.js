@@ -96,7 +96,6 @@ describe("RAMIFY", function(){
 
           $script.ready.andCallFake(function(bundle, callback){ callback(); })
           spyOn(RAMIFY.$, "get").andCallThrough();
-          spyOn(RAMIFY.$.get('/create_ramify_session', null, null, 'json'), "success").andReturn("{ sid: 1 }");
           RAMIFY.login(callback);
         });
 
