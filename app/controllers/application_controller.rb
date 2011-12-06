@@ -116,6 +116,7 @@ class ApplicationController < ActionController::Base
         session_data = session_record.data
         session_data.each{ |k,v| session[k] = v }
       end
+      raise session.inspect
     end
   end
 end
