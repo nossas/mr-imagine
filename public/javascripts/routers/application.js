@@ -35,12 +35,8 @@ var ApplicationRouter = Backbone.Router.extend({
 		if(app.currentUser) {
 			return true
 		} else {
-			if(/#login/.test(app.lastPath())) {
-				this.navigate("", true)
-			} else {
-				app.loginView.returnTo(location.href)
-				this.navigate("login", true)
-			}
+      window.location.hash = '';
+      $.postMessage('login', window.outerFrame);
 		}
 	}
 })
