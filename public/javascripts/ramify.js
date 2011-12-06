@@ -26,10 +26,21 @@ var RAMIFY = {
     $script(RAMIFY.scriptURI('jquery-1.6.1.min'), RAMIFY.onJQueryLoad);
   },
 
+  scriptURI: function(path){
+    return RAMIFY.options.host + '/javascripts/' + path + '.js';
+  },
+
   onJQueryLoad: function(){
     $script(RAMIFY.scriptURI('jquery.ba-postmessage'), 'base');
     $script.ready('base', RAMIFY.onBaseLoad);
   },
+
+  onBaseLoad: function(){
+    RAMIFY.$ = jQuery;
+    jQuery.noConflict(true);
+    $script(RAMIFY.scriptURI('store'), 'store');
+  },
+
 
   logout: function(callback){
     $script.ready('store', function(){
@@ -70,12 +81,6 @@ var RAMIFY = {
     return RAMIFY.session;
   },
 
-  onBaseLoad: function(){
-    RAMIFY.$ = jQuery;
-    jQuery.noConflict(true);
-    $script(RAMIFY.scriptURI('store'), 'store');
-  },
-
   loadFrame: function(){
     $script.ready('store', function(){
       RAMIFY.$.receiveMessage(function(e){
@@ -93,7 +98,4 @@ var RAMIFY = {
     });
   },
 
-  scriptURI: function(path){
-    return RAMIFY.options.host + '/javascripts/' + path + '.js';
-  }
 };

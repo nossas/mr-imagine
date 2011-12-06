@@ -38,10 +38,21 @@ describe("RAMIFY", function(){
     });
   });
 
+    describe("#loadJS", function(){
+      beforeEach(function(){
+        RAMIFY.loadJS();
+      });
+
+      it("should call $script to load ramify's jquery to call onJQueryLoad", function(){
+        expect($script).toHaveBeenCalledWith('http://localhost/javascripts/jquery-1.6.1.min.js', RAMIFY.onJQueryLoad);
+      });
+  });
+
+
   describe("#onJQueryLoad", function(){
     it("should call $script to load jquery.ba-postmessage to call onBaseLoad", function(){
       RAMIFY.onJQueryLoad();
-      expect($script).toHaveBeenCalledWith(['http://localhost/javascripts/jquery.ba-postmessage.js', 'http://localhost/javascripts/store.js'], 'base');
+      expect($script).toHaveBeenCalledWith('http://localhost/javascripts/jquery.ba-postmessage.js', 'base');
       expect($script.ready).toHaveBeenCalledWith('base', RAMIFY.onBaseLoad);
     });
   });
@@ -50,34 +61,21 @@ describe("RAMIFY", function(){
     beforeEach(function(){
       window.Store = function(){};
       spyOn(jQuery, "noConflict");
+      RAMIFY.onBaseLoad();
     });
 
     it("should setup JQuery no conflict before loadFrame", function(){
-      $script.andCallFake(function(){
-        expect(RAMIFY.$).toEqual(jQuery);
-        expect(jQuery.noConflict).toHaveBeenCalledWith(true);
-      });
-      RAMIFY.onBaseLoad();
+      expect(RAMIFY.$).toEqual(jQuery);
+      expect(jQuery.noConflict).toHaveBeenCalledWith(true);
     });
-
-    it("should assign session store to RAMIFY.sesion", function(){
-      RAMIFY.onBaseLoad();
-      expect(RAMIFY.session).toEqual(jasmine.any(Store));
-    });
-
-  });
-
-  describe("#loadJS", function(){
-    beforeEach(function(){
-      RAMIFY.loadJS();
-    });
-
-    it("should call $script to load ramify's jquery to call onJQueryLoad", function(){
-      expect($script).toHaveBeenCalledWith('http://localhost/javascripts/jquery-1.6.1.min.js', RAMIFY.onJQueryLoad);
+    it("should call $script to load store.js", function(){
+      expect($script).toHaveBeenCalledWith('http://localhost/javascripts/store.js', 'store');
     });
   });
 
-  describe("loadFrame", function(){
+
+
+  describe("#loadFrame", function(){
     var iframe = $("<iframe>");
     var target = $("#main");
 
@@ -93,15 +91,14 @@ describe("RAMIFY", function(){
       RAMIFY.options = {host: 'http://test', path: '/ideias/iframe'};
       RAMIFY.sid = 'session_id';
       $script.ready.andCallFake(function(bundle, callback){ callback(); });
+      RAMIFY.loadFrame();
     });
 
     it("should call only when base is ready", function(){
-      RAMIFY.loadFrame();
-      expect($script.ready).toHaveBeenCalledWith('base', jasmine.any(Function));
+      expect($script.ready).toHaveBeenCalledWith('store', jasmine.any(Function));
     });
 
     it("should append iframe to target element with host and path from options", function(){
-      RAMIFY.loadFrame();
       expect(iframe.attr).toHaveBeenCalledWith({
         'src': 'http://test/ideias/iframe?iframe=true&sid=session_id',
         'width': '950',
@@ -112,7 +109,6 @@ describe("RAMIFY", function(){
     });
 
     it("should append iframe to target element", function(){
-      RAMIFY.loadFrame();
       expect(RAMIFY.$).toHaveBeenCalledWith("<iframe>");
       expect(iframe.attr).toHaveBeenCalledWith({
         'src': 'http://test/ideias/iframe?iframe=true&sid=session_id',
