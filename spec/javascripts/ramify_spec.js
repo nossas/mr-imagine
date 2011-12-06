@@ -1,3 +1,5 @@
+window.context = window.describe;
+
 describe("RAMIFY", function(){
   beforeEach(function(){
     RAMIFY.options = {host: 'http://localhost'};
@@ -82,6 +84,35 @@ describe("RAMIFY", function(){
       expect(RAMIFY.session).toEqual(store);
       expect(RAMIFY.getSession()).toEqual(store);
     });
+  });
+
+  describe("#login", function(){
+    context("When user is not currently in a session", function(){
+      beforeEach(function(){
+          RAMIFY.getSession().set('logged', undefined);
+
+          $script.ready.andCallFake(function(bundle, callback){ callback(); })
+          spyOn(RAMIFY.$, "get").andCallThrough();
+          spyOn(RAMIFY.$.get(), "success").andCallThrough();
+          RAMIFY.login(function(){});
+        });
+
+        it("should make a GET request in order to create a session", function(){
+          expect(RAMIFY.getSession().get('logged')).toBeUndefined();
+          expect(RAMIFY.$.get).toHaveBeenCalledWith('/create_ramify_session', null, null, 'json');
+        });
+    });
+    context("When user is currently in a session", function(){
+      beforeEach(function(){
+        $script.ready.andCallFake(function(bundle, callback){ callback(); })
+        RAMIFY.getSession().set('logged', true);
+        RAMIFY.login(function(){});
+      });
+
+      it("Should not make a GET request to create a session", function(){
+        expect(RAMIFY.getSession().get('logged')).toEqual(true);
+      });
+   });
   });
 
   describe("#loadFrame", function(){
