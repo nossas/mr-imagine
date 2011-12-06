@@ -114,7 +114,7 @@ class ApplicationController < ActionController::Base
       session_record = ActiveRecord::SessionStore::Session.find_by_session_id(params[:sid])
       if session_record
         session_data = session_record.data
-        session_data.each{ |k,v| session[k] = v }
+        session_data.each{ |k,v| session[k.to_sym] = v }
       end
     end
   end
