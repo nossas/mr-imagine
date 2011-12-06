@@ -59,7 +59,6 @@ describe("RAMIFY", function(){
 
   describe("#onBaseLoad", function(){
     beforeEach(function(){
-      window.Store = function(){};
       spyOn(jQuery, "noConflict");
       RAMIFY.onBaseLoad();
     });
@@ -74,6 +73,16 @@ describe("RAMIFY", function(){
   });
 
 
+  describe("#getSession", function(){
+    beforeEach(function(){
+      RAMIFY.getSession();
+    });
+    it("should create Session with Store if it isn't created yet", function(){
+      var store = new Store("ramify_session");
+      expect(RAMIFY.session).toEqual(store);
+      expect(RAMIFY.getSession()).toEqual(store);
+    });
+  });
 
   describe("#loadFrame", function(){
     var iframe = $("<iframe>");

@@ -44,7 +44,7 @@ var RAMIFY = {
 
   logout: function(callback){
     $script.ready('store', function(){
-      RAMIFY.$.get('/destroy_ramify_session', null, null, 'json')
+      RAMIFY.$.post('/destroy_ramify_session', null, null, 'json')
         .success(function(data){
           RAMIFY.sid = data.sid;
           RAMIFY.getSession().set('logged', false);
