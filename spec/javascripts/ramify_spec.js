@@ -3,6 +3,7 @@ window.context = window.describe;
 describe("RAMIFY", function(){
   beforeEach(function(){
     RAMIFY.options = {host: 'http://localhost'};
+    RAMIFY.sid = null;
     $script = jasmine.createSpy('$script');
     $script.ready = jasmine.createSpy('$script');
   });
@@ -89,24 +90,29 @@ describe("RAMIFY", function(){
   describe("#login", function(){
     context("When user is not currently in a session", function(){
       beforeEach(function(){
+          var callback = jasmine.createSpy();
+
           RAMIFY.getSession().set('logged', undefined);
 
           $script.ready.andCallFake(function(bundle, callback){ callback(); })
           spyOn(RAMIFY.$, "get").andCallThrough();
-          spyOn(RAMIFY.$.get(), "success").andCallThrough();
-          RAMIFY.login(function(){});
+          spyOn(RAMIFY.$.get('/create_ramify_session', null, null, 'json'), "success").andReturn("{ sid: 1 }");
+          RAMIFY.login(callback);
         });
 
         it("should make a GET request in order to create a session", function(){
+
           expect(RAMIFY.getSession().get('logged')).toBeUndefined();
           expect(RAMIFY.$.get).toHaveBeenCalledWith('/create_ramify_session', null, null, 'json');
         });
     });
     context("When user is currently in a session", function(){
       beforeEach(function(){
+
+        var callback = jasmine.createSpy();
         $script.ready.andCallFake(function(bundle, callback){ callback(); })
         RAMIFY.getSession().set('logged', true);
-        RAMIFY.login(function(){});
+        RAMIFY.login(callback);
       });
 
       it("Should not make a GET request to create a session", function(){
