@@ -44,7 +44,7 @@ var RAMIFY = {
 
   logout: function(callback){
     $script.ready('store', function(){
-      RAMIFY.$.post('/destroy_ramify_session', null, null, 'json')
+      RAMIFY.$.get('/destroy_ramify_session', null, null, 'json')
         .success(function(data){
           RAMIFY.sid = data.sid;
           RAMIFY.getSession().set('logged', false);
@@ -85,6 +85,7 @@ var RAMIFY = {
     $script.ready('store', function(){
       RAMIFY.$.receiveMessage(function(e){
         if(e.data == 'login'){
+          $('#member_panel a:last').trigger('click');
         }
       }, RAMIFY.host );
       var iframe = RAMIFY.$("<iframe>").attr({

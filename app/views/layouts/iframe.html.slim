@@ -9,7 +9,11 @@ html xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml"
         = yield
         - content_for :javascripts do
           = javascript_include_tag 'jquery.ba-postmessage'
-          javascript:
-            $.postMessage('login', 'http://localhost:3000/paginas/imagine');
+          - if Rails.env == 'production'
+            javascript:
+              window.outerFrame = 'http://meu-rio-staging.herokuapp.com/paginas/imagine';
+          - else
+            javascript:
+              window.outerFrame = 'http://localhost:3000/paginas/imagine';
       #footer= render 'layouts/footer'
 

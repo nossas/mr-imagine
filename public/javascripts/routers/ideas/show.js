@@ -41,7 +41,8 @@ var ShowIdeaRouter = ApplicationRouter.extend({
   
   confirmFork: function() {
     this.closePopups()
-    app.confirmForkView.render()
+		if(this.requireLogin())
+      app.confirmForkView.render();
   },
 
 	remove: function () {
